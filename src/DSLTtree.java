@@ -1,12 +1,13 @@
 public interface DSLTtree {
 	
+	public void insert(int label);
+	
+	public void delete(int label);
+	
 	/**
 	 * @return the integers stored in the tree in level order
 	 */
-	public int[] nodes();
+	public node[] allNodes();
 	
-	/**
-	 * @return an array of
-	 */
-	public boolean[] reds();
+	public String getMessage();
 }
