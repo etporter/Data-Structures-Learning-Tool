@@ -3,25 +3,39 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*	AVLTree
+ * 	Implements DSLTtree
+ * 	Conditions: BST
+ * 				|leftSubtree.height - rightSubtree.height| cannot be greater than 1
+ * 				Deletions: Smallest item in right subtree replaces item
+ */
 public class AvlTree implements DSLTtree {
 	
         public Node root;
         public String message = "";
         public List<Node> levelOrder;
         
+        
         //Constructor, empty tree, no root.
         public AvlTree( )
         {	root = null;
         }
 
-        //Constructor, with element set
+        //Constructor, with element of root
         public AvlTree(int element)
         {	root = new Node(element);
         }
         
+        //Delete stub, to match that of implementation.
+        //Calls internal delete method
+        public void delete(int element)
+        {	root = delete(element, root);
+        }
+        
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
-        public Node delete(int element, Node parent)
+        private Node delete(int element, Node parent)
         {	if(find(element, parent) == true)
         	{	
         		//If in left subtree
@@ -93,17 +107,20 @@ public class AvlTree implements DSLTtree {
         	    }
         	 
         	    return parent;
-        		
-        		
         	}
+        	
+        	//Else, this element was not in the tree. Do nothing. 
         	else
         	{   message = element + "was not in the tree.";
         		return parent;
         	}
+        
         }
 
         
-        
+        //Gets a balance factor for this node. 
+        //If > 1, left side needs rotation
+        //If < 1, right side needs rotation
         public int getBalance(Node parent)
         {	if(parent == null)
         		return 0;
@@ -112,28 +129,22 @@ public class AvlTree implements DSLTtree {
         	}
         }
         
+        
         //Finds the smallest element in a tree, used when finding a replacement
         public Node findSmallest(Node parent)
-        {	if(parent.leftChild == null)
+        {	//If this doesn't have a left child, return the parent
+        	if(parent.leftChild == null)
         		return parent;
+        	//If it does have left child, call method again on the leftChild
         	else
         	{	return findSmallest(parent.leftChild);
         	}	
         }
         
-        
-        public void update(Node parent)
-        {	
-        	
-        }
-        
         //Returns String to update learning tool of what happened in tree
         public String getMessage()
-        {
-        	return message;
+        {	return message;
         }
-        
-        
         
         //Uses Lists to get a level order of all nodes
         public List<Node> allNodes()
