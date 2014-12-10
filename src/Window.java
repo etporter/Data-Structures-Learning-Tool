@@ -1,14 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.*;
-
 
 public class Window extends JFrame {
 	
@@ -20,9 +15,10 @@ public class Window extends JFrame {
 	JTextArea infoBox = new JTextArea(10,20);
 	JTextArea updateBox = new JTextArea(25,20);
 	JLabel header1 = new JLabel("--------------");
+	DSLTcanvas treeDisplay = new DSLTcanvas();
 	
-	
-	public Window(){
+	public Window()
+	{
 		super("Tree Visualisation - Term Project");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -35,7 +31,8 @@ public class Window extends JFrame {
 		String[] commands = {"Insert","Delete"};
 		
 		for(int i=0; i<commands.length; i++)
-		{	dropDown.addItem(commands[i]);
+		{
+			dropDown.addItem(commands[i]);
 		}
 		
 		dropDown.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -55,10 +52,11 @@ public class Window extends JFrame {
 		sidePanel.add(updateBox);
 		sidePanel.add(backButton);
 		
-		windowLayout.add(sidePanel, BorderLayout.WEST);
+		treeDisplay.setPreferredSize(new Dimension(900,600));
 		
+		windowLayout.add(sidePanel, BorderLayout.WEST);
+		windowLayout.add(treeDisplay, BorderLayout.EAST);
 		
 		getContentPane().add(windowLayout, BorderLayout.WEST);
 	}
-
 }
