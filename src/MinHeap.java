@@ -28,9 +28,15 @@ public class MinHeap implements DSLTtree {
 
 	}
 	
+	//Deletes minimum item
 	public void delete(int label)
-	{ 	
+	{ 	//Overwrite first index with last index, decrement size
+		minHeap.set(1, minHeap.get(size));
+		minHeap.set(size, null);
+		size--;
 		
+		//Percolate this item down the tree
+		percolateDown();
 	}
 	
 	
