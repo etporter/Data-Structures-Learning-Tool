@@ -96,17 +96,17 @@ public class AvlTree implements DSLTtree {
                    	//if item is rightmost from parent, double rotation
                        if(element > parent.leftChild.element)
                        {	message += ("Double rotation about" + parent.element);
-                       	parent = doubleRotateLeft(parent);
+                       		parent = doubleRotateLeft(parent);
                        }
                    
                    	//Else item is leftmost, single rotation
                        else
                        {	message += ("Single rotation about" + parent.element);
-                       	parent = singleRotateLeft(parent);
+                       		parent = singleRotateLeft(parent);
                        }
                    }
         		   
-        		   if(parent.getRCH() - parent.getLCH() > 1)
+        		   else if(parent.getRCH() - parent.getLCH() > 1)
                    {  
                    	//if item is rightmost, single rotation
                    	if(element > parent.rightChild.element)
@@ -117,61 +117,18 @@ public class AvlTree implements DSLTtree {
                    	//else item is leftmost, double rotation
                        else
                        { 	message += ("Double rotation about" + parent.element);
-                       	parent = doubleRotateRight(parent);
+                       		parent = doubleRotateRight(parent);
                        }
                    }
         		   
         		   
-        		   
-        	    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
-        	   /* //  this node became unbalanced)
-        	    int balance = getBalance(parent);
-        	 
-        	    // If this node becomes unbalanced, then there are 4 cases
-        	 
-        	    
-        	    
         
-        	    // Left Left Case
-        	    if ((balance > 1) && (getBalance(parent.leftChild) >= 0))
-        	    {	message += ("Single Rotation about" + parent.element);
-        	        return singleRotateLeft(parent);
-        	    }
-        	    // Left Right Case
-        	    if ((balance > 1) && (getBalance(parent.leftChild) < 0))
-        	    {	message += ("Double Rotation about" + parent.element);
-        	    	return doubleRotateRight(parent);
-        	    }
-        	 
-        	    // Right Right Case
-        	    if ((balance < -1) && (getBalance(parent.rightChild) <= 0))
-        	    {  	message += ("Single Rotation about" + parent.element);
-        	    	return singleRotateRight(root);
-        	    }
-        	    // Right Left Case
-        	    if ((balance < -1) && (getBalance(parent.rightChild) > 0))
-        	    {	message += ("Double Rotation about" + parent.element);
-        	    	return doubleRotateLeft(parent.rightChild);
-        	    }*/
-        	 
         	    return parent;
         }
         	
         
         
 
-        
-        //Gets a balance factor for this node. 
-        //If > 1, left side needs rotation
-        //If < 1, right side needs rotation
-        public int getBalance(Node parent)
-        {	if(parent == null)
-        		return 0;
-        	else
-        	{	return parent.getLCH() - parent.getRCH();
-        	}
-        }
-        
         
         //Finds the smallest element in a tree, used when finding a replacement
         public Node findSmallest(Node parent)

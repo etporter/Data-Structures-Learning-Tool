@@ -41,19 +41,22 @@ public class Tester {
 		    	else
 		    		System.out.println("Null Node");
 		    }
-		    /*
-		    System.out.println("");
-		   
 		    
+		    MinHeap thisHeap = new MinHeap();
+		    thisHeap.insert(40);
+		    thisHeap.insert(41);
+		    thisHeap.insert(52);
+		    thisHeap.insert(38);
+		    thisHeap.insert(56);
+		    thisHeap.insert(42);
+		    thisHeap.delete(-1);
+		    List<Node> thisHeapList = thisHeap.allNodes();
+		    for(int i = 0; i<= thisHeap.size; i++)
+		    {System.out.println(thisHeapList.get(i).element);
 		    
-		    thisList = thisTree.allNodes();
-		    for(int i = 0; i<thisList.size(); i++)
-		    {	if(thisList.get(i) != AvlTree.empty)
-		    		System.out.println(thisList.get(i).element);
-		    	else
-		    		System.out.println("Null Node");
-		    }*/
-		  }
+		    }
+
+	}
 		
 
 }

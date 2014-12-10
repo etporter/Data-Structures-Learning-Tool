@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MinHeap implements DSLTtree {
 	
-    public Node root;
+    public Node root = new Node();
     public String message = "";
     public List<Node> minHeap = new ArrayList<Node>(30);
     public int size;
@@ -15,15 +15,16 @@ public class MinHeap implements DSLTtree {
     //Constructor, empty tree, no root.
     public MinHeap( )
     {	size = 0;
-    	minHeap.set(size, null);
+    	minHeap.add(root);
     }
     
     //Inserts into minHeap array. 
     //Skip index 0 b/c finding correct index's is easier when starting at 1
 	public void insert(int element)
-	{	size++;
-		int index = size;
-		minHeap.get(index).element = element;     
+	{	Node insertThis = new Node(element);
+		size++;
+		//int index = size;
+		minHeap.add(insertThis);    
         percolateUp();
         message = element + "was inserted. \n Percolate Up.";
 
@@ -57,39 +58,27 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	public void percolateDown()
-	{	int index = 1;
-		int LCIndex = index*2;
-		int RCIndex = (index*2) + 1;
-		//While this item has a left child(index * 2)
-		while (minHeap.get(LCIndex) != null)
-		{
-			
-	        //Sets smallerChild to left
-	        int smallerChildIndex = LCIndex;
-	        int smallerChild = minHeap.get(LCIndex).element;
-	        
-	        //Check right side for a smallerChild, and replace if necessary
-	        if (minHeap.get(RCIndex) != null)
-	        {	int compareChild = minHeap.get(RCIndex).element;
-	        	if(smallerChild > compareChild)
-	        	{	smallerChildIndex = RCIndex;
-	        	}
-	        }
-	           
-	        if(minHeap.get(index).element > minHeap.get(smallerChildIndex).element)
-	        {	swap(index, smallerChildIndex);
+	{	int startIndex = 1;
+		int child;
+		   Node tmp = minHeap.get(startIndex);
+
+	        for( ; startIndex * 2 <= size; startIndex = child )
+	        {	child = startIndex * 2;
+	            if( child != size && (minHeap.get(child+1).element < minHeap.get(child).element))
+	            {     
+	                child++;
+	            }
+	            if(minHeap.get(child).element < tmp.element)
+	         
+	            {     minHeap.set(startIndex, minHeap.get(child));
+	            
+	            
+	            }
+	            else
+	                break;
 	        }
 	        
-	        else
-	        {
-	        	break;
-	        }
-	        
-	        //Update index to continue loop
-	        index = smallerChild;
-	        LCIndex = index*2;
-			RCIndex = (index*2) + 1;
-		}        
+	        minHeap.set(startIndex, tmp);
 		
 	}
 	
