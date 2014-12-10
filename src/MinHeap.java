@@ -29,33 +29,7 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	public void delete(int label)
-	{ 	int index = 1;
-    
-    	//While this item has a left child(index * 2)
-    	while (minHeap.get(index*2) != null)
-    	{
-    		
-	        // which of my children is smaller?
-	        int smallerChild = minHeap.get(index*2).element;
-	        
-	        // bubble with the smaller child, if I have a smaller child
-	        if (hasRightChild(index)
-	            && array[leftIndex(index)].compareTo(array[rightIndex(index)]) > 0) 
-	        {	smallerChild = rightIndex(index);
-	        } 
-	        
-	        if (array[index].compareTo(array[smallerChild]) > 0)
-	        {
-	            swap(index, smallerChild);
-	        } 
-	        else {
-	            // otherwise, get outta here!
-	            break;
-	        }
-	        
-	        // make sure to update loop counter/index of where last el is put
-	        index = smallerChild;
-    }        
+	{ 	
 		
 	}
 	
@@ -73,7 +47,39 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	public void percolateDown()
-	{
+	{	int index = 1;
+		int LCIndex = index*2;
+		int RCIndex = (index*2) + 1;
+		//While this item has a left child(index * 2)
+		while (minHeap.get(LCIndex) != null)
+		{
+			
+	        //Sets smallerChild to left
+	        int smallerChildIndex = LCIndex;
+	        int smallerChild = minHeap.get(LCIndex).element;
+	        
+	        //Check right side for a smallerChild, and replace if necessary
+	        if (minHeap.get(RCIndex) != null)
+	        {	int compareChild = minHeap.get(RCIndex).element;
+	        	if(smallerChild > compareChild)
+	        	{	smallerChildIndex = RCIndex;
+	        	}
+	        }
+	           
+	        if(minHeap.get(index).element > minHeap.get(smallerChildIndex).element)
+	        {	swap(index, smallerChildIndex);
+	        }
+	        
+	        else
+	        {
+	        	break;
+	        }
+	        
+	        //Update index to continue loop
+	        index = smallerChild;
+	        LCIndex = index*2;
+			RCIndex = (index*2) + 1;
+		}        
 		
 	}
 	
