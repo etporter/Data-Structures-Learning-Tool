@@ -1,41 +1,22 @@
-    // BinarySearchTree class
-    //
-    // CONSTRUCTION: with no initializer
-    //
-    // ******************PUBLIC OPERATIONS*********************
-    // void insert( x )       --> Insert x
-    // void remove( x )       --> Remove x (unimplemented)
-    // Comparable find( x )   --> Return item that matches x
-    // Comparable findMin( )  --> Return smallest item
-    // Comparable findMax( )  --> Return largest item
-    // boolean isEmpty( )     --> Return true if empty; else false
-    // void makeEmpty( )      --> Remove all items
-    // void printTree( )      --> Print tree in sorted order
 
-   
-        
-    /**
-     * Implements an AVL tree.
-     * Note that all "matching" is based on the compareTo method.
-     * @author Mark Allen Weiss
-     */
-    public class AvlTree
-    {
-    	 /** The tree root. */
+
+
+public class AvlTree implements DSLTtree {
+	
         private Node root;
+        
         /**
          * Construct the tree.
          */
         public AvlTree( )
-        {
-            root = null;
+        {	root = null;
         }
 
         /**
          * Insert into the tree; duplicates are ignored.
          * @param x the item to insert.
          */
-        public void insert( Comparable x )
+        public void insert( int x )
         {
             root = insert( x, root );
         }
@@ -44,27 +25,9 @@
          * Remove from the tree. Nothing is done if x is not found.
          * @param x the item to remove.
          */
-        public void remove( Comparable x )
+        public void remove( int x )
         {
             System.out.println( "Sorry, remove unimplemented" );
-        }
-
-        /**
-         * Find the smallest item in the tree.
-         * @return smallest item or null if empty.
-         */
-        public Comparable findMin( )
-        {
-            return elementAt( findMin( root ) );
-        }
-
-        /**
-         * Find the largest item in the tree.
-         * @return the largest item of null if empty.
-         */
-        public Comparable findMax( )
-        {
-            return elementAt( findMax( root ) );
         }
 
         /**
@@ -72,7 +35,7 @@
          * @param x the item to search for.
          * @return the matching item or null if not found.
          */
-        public Comparable find( Comparable x )
+        public int find( int x )
         {
             return elementAt( find( x, root ) );
         }
@@ -110,7 +73,7 @@
          * @param t the node.
          * @return the element field or null if t is null.
          */
-        private Comparable elementAt( Node t )
+        private int elementAt( Node t )
         {
             return t == null ? null : t.element;
         }
@@ -121,61 +84,31 @@
          * @param t the node that roots the tree.
          * @return the new root.
          */
-        private Node insert( Comparable x, Node t )
+        private Node insert( int x, Node t )
         {
             if( t == null )
                 t = new Node( x, null, null );
-            else if( x.compareTo( t.element ) < 0 )
+            else if(x < t.element)
             {
-                t.left = insert( x, t.left );
-                if( height( t.left ) - height( t.right ) == 2 )
-                    if( x.compareTo( t.left.element ) < 0 )
+                t.leftChild = insert( x, t.leftChild );
+                if( height( t.leftChild ) - height( t.rightChild ) == 2 )
+                    if(x < t.leftChild.element)
                         t = rotateWithLeftChild( t );
                     else
                         t = doubleWithLeftChild( t );
             }
-            else if( x.compareTo( t.element ) > 0 )
+            else if(x > t.element)
             {
-                t.right = insert( x, t.right );
-                if( height( t.right ) - height( t.left ) == 2 )
-                    if( x.compareTo( t.right.element ) > 0 )
+                t.rightChild = insert( x, t.rightChild );
+                if( height( t.rightChild ) - height( t.leftChild ) == 2 )
+                    if(x > t.rightChild.element)
                         t = rotateWithRightChild( t );
                     else
                         t = doubleWithRightChild( t );
             }
             else
                 ;  // Duplicate; do nothing
-            t.height = max( height( t.left ), height( t.right ) ) + 1;
-            return t;
-        }
-
-        /**
-         * Internal method to find the smallest item in a subtree.
-         * @param t the node that roots the tree.
-         * @return node containing the smallest item.
-         */
-        private Node findMin( Node t )
-        {
-            if( t == null )
-                return t;
-
-            while( t.left != null )
-                t = t.left;
-            return t;
-        }
-
-        /**
-         * Internal method to find the largest item in a subtree.
-         * @param t the node that roots the tree.
-         * @return node containing the largest item.
-         */
-        private Node findMax( Node t )
-        {
-            if( t == null )
-                return t;
-
-            while( t.right != null )
-                t = t.right;
+            t.height = max( height( t.leftChild ), height( t.rightChild ) ) + 1;
             return t;
         }
 
@@ -185,13 +118,13 @@
          * @param t the node that roots the tree.
          * @return node containing the matched item.
          */
-        private Node find( Comparable x, Node t )
+        private Node find( int x, Node t )
         {
             while( t != null )
-                if( x.compareTo( t.element ) < 0 )
-                    t = t.left;
-                else if( x.compareTo( t.element ) > 0 )
-                    t = t.right;
+                if( x < t.element)
+                    t = t.leftChild;
+                else if( x > t.element)
+                    t = t.rightChild;
                 else
                     return t;    // Match
 
@@ -206,9 +139,9 @@
         {
             if( t != null )
             {
-                printTree( t.left );
+                printTree( t.leftChild );
                 System.out.println( t.element );
-                printTree( t.right );
+                printTree( t.rightChild );
             }
         }
 
@@ -235,11 +168,11 @@
          */
         private static Node rotateWithLeftChild( Node k2 )
         {
-            Node k1 = k2.left;
-            k2.left = k1.right;
-            k1.right = k2;
-            k2.height = max( height( k2.left ), height( k2.right ) ) + 1;
-            k1.height = max( height( k1.left ), k2.height ) + 1;
+            Node k1 = k2.leftChild;
+            k2.leftChild = k1.rightChild;
+            k1.rightChild = k2;
+            k2.height = max( height( k2.leftChild ), height( k2.rightChild ) ) + 1;
+            k1.height = max( height( k1.leftChild ), k2.height ) + 1;
             return k1;
         }
 
@@ -250,11 +183,11 @@
          */
         private static Node rotateWithRightChild( Node k1 )
         {
-            Node k2 = k1.right;
-            k1.right = k2.left;
-            k2.left = k1;
-            k1.height = max( height( k1.left ), height( k1.right ) ) + 1;
-            k2.height = max( height( k2.right ), k1.height ) + 1;
+            Node k2 = k1.rightChild;
+            k1.rightChild = k2.leftChild;
+            k2.leftChild = k1;
+            k1.height = max( height( k1.leftChild ), height( k1.rightChild ) ) + 1;
+            k2.height = max( height( k2.rightChild ), k1.height ) + 1;
             return k2;
         }
 
@@ -266,7 +199,7 @@
          */
         private static Node doubleWithLeftChild( Node k3 )
         {
-            k3.left = rotateWithRightChild( k3.left );
+            k3.leftChild = rotateWithRightChild( k3.leftChild );
             return rotateWithLeftChild( k3 );
         }
 
@@ -278,33 +211,8 @@
          */
         private static Node doubleWithRightChild( Node k1 )
         {
-            k1.right = rotateWithLeftChild( k1.right );
+            k1.rightChild = rotateWithLeftChild( k1.rightChild );
             return rotateWithRightChild( k1 );
         }
 
-
-
-/*
-            // Test program
-        public static void main( String [ ] args )
-        {
-            AvlTree t = new AvlTree( );
-            final int NUMS = 4000;
-            final int GAP  =   37;
-
-            System.out.println( "Checking... (no more output means success)" );
-
-            for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-                t.insert( new MyInteger( i ) );
-
-            if( NUMS < 40 )
-                t.printTree( );
-            if( ((MyInteger)(t.findMin( ))).intValue( ) != 1 ||
-                ((MyInteger)(t.findMax( ))).intValue( ) != NUMS - 1 )
-                System.out.println( "FindMin or FindMax error!" );
-
-            for( int i = 1; i < NUMS; i++ )
-                 if( ((MyInteger)(t.find( new MyInteger( i ) ))).intValue( ) != i )
-                     System.out.println( "Find error1!" );
-    }*/
 }
