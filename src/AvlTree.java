@@ -1,4 +1,4 @@
-
+import java.lang.Math;
 
 public class AvlTree implements DSLTtree {
 	
@@ -29,43 +29,6 @@ public class AvlTree implements DSLTtree {
             System.out.println( "Sorry, remove unimplemented" );
         }
 
-        /**
-         * Find an item in the tree.
-         * @param x the item to search for.
-         * @return the matching item or null if not found.
-         */
-        public int find( int x )
-        {
-            return elementAt( find( x, root ) );
-        }
-
-        /**
-         * Make the tree logically empty.
-         */
-        public void makeEmpty( )
-        {
-            root = null;
-        }
-
-        /**
-         * Test if the tree is logically empty.
-         * @return true if empty, false otherwise.
-         */
-        public boolean isEmpty( )
-        {
-            return root == null;
-        }
-
-        /**
-         * Print the tree contents in sorted order.
-         */
-        public void printTree( )
-        {
-            if( isEmpty( ) )
-                System.out.println( "Empty tree" );
-            else
-                printTree( root );
-        }
 
         /**
          * Internal method to get element field.
@@ -96,7 +59,7 @@ public class AvlTree implements DSLTtree {
                 parent.leftChild = insert(x, parent.leftChild);
                 
                 //if the height of the left subtree is more than 1 different
-                if(height(parent.leftChild) - height(parent.rightChild) > 1)
+                if(parent.getLCH() - parent.getRCH() > 1)
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
@@ -118,7 +81,7 @@ public class AvlTree implements DSLTtree {
                 parent.rightChild = insert( x, parent.rightChild );
                 
                 //Checks height condition
-                if(height( parent.rightChild ) - height( parent.leftChild ) > 1)
+                if(parent.getRCH() - parent.getLCH() > 1)
                 {  
                 	//if item is rightmost, single rotation
                 	if(x > parent.rightChild.element)
@@ -133,65 +96,38 @@ public class AvlTree implements DSLTtree {
             }
             
             //Updates height of parent at each level, because recursive calls will cause this to be updated
-            if(height(parent.leftChild) > height(parent.rightChild))
-            {	parent.height = height(parent.leftChild) + 1;
+            if(parent.getLCH() > parent.getRCH())
+            {	parent.height = parent.getLCH() + 1;
             }
             else
-            {	parent.height = height(parent.rightChild) + 1; 
+            {	parent.height = parent.getRCH() + 1; 
             }
             
             //returns parent so recursion can occur
             return parent;
         }
 
-        /**
-         * Internal method to find an item in a subtree.
-         * @param x is item to search for.
-         * @param t the node that roots the tree.
-         * @return node containing the matched item.
-         */
-        private Node find( int x, Node t )
+        //Boolean to tell if item is in the tree or not
+        private boolean find(int x, Node node)
         {
-            while( t != null )
-                if( x < t.element)
-                    t = t.leftChild;
-                else if( x > t.element)
-                    t = t.rightChild;
+            while( node != null )
+                if(x < node.element)
+                {	//Check left side if less
+                    node = node.leftChild;
+                }
+                else if(x > node.element)
+                {	//Check right side if greater
+                	node = node.rightChild;
+                }
                 else
-                    return t;    // Match
-
-            return null;   // No match
+                {	//Match
+                    return true;    
+                }
+            
+            //Hit a null node
+            return false;
         }
 
-        /**
-         * Internal method to print a subtree in sorted order.
-         * @param t the node that roots the tree.
-         */
-        private void printTree( Node t )
-        {
-            if( t != null )
-            {
-                printTree( t.leftChild );
-                System.out.println( t.element );
-                printTree( t.rightChild );
-            }
-        }
-
-        /**
-         * Return the height of node t, or -1, if null.
-         */
-        private static int height( Node t )
-        {
-            return t == null ? -1 : t.height;
-        }
-
-        /**
-         * Return maximum of lhs and rhs.
-         */
-        private static int max( int lhs, int rhs )
-        {
-            return lhs > rhs ? lhs : rhs;
-        }
 
         /**
          * Rotate binary tree node with left child.
@@ -203,8 +139,8 @@ public class AvlTree implements DSLTtree {
             Node k1 = k2.leftChild;
             k2.leftChild = k1.rightChild;
             k1.rightChild = k2;
-            k2.height = max( height( k2.leftChild ), height( k2.rightChild ) ) + 1;
-            k1.height = max( height( k1.leftChild ), k2.height ) + 1;
+            k2.height = Math.max(k2.getLCH(), k2.getRCH()) + 1;
+            k1.height = Math.max(k1.getLCH(), k2.height) + 1;
             return k1;
         }
 
@@ -218,8 +154,8 @@ public class AvlTree implements DSLTtree {
             Node k2 = k1.rightChild;
             k1.rightChild = k2.leftChild;
             k2.leftChild = k1;
-            k1.height = max( height( k1.leftChild ), height( k1.rightChild ) ) + 1;
-            k2.height = max( height( k2.rightChild ), k1.height ) + 1;
+            k1.height = Math.max(k1.getLCH(), k1.getRCH()) + 1;
+            k2.height = Math.max(k2.getRCH(), k1.height) + 1;
             return k2;
         }
 
