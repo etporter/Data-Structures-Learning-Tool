@@ -182,7 +182,7 @@ public class AvlTree implements DSLTtree {
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)
         {	root = insert(element, root);
-        	message = "";
+        	message = element + "was inserted.";
         }
         
         //Inserts x into tree, pass in root from outside. 
@@ -209,13 +209,14 @@ public class AvlTree implements DSLTtree {
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
-                    {	message +=
+                    {	message += ("Double rotation about" + parent.element);
                     	parent = doubleRotateLeft(parent);
                     }
                 
                 	//Else item is leftmost, single rotation
                     else
-                    {	parent = singleRotateLeft(parent);
+                    {	message += ("Single rotation about" + parent.element);
+                    	parent = singleRotateLeft(parent);
                     }
                 }
                         
@@ -232,12 +233,14 @@ public class AvlTree implements DSLTtree {
                 {  
                 	//if item is rightmost, single rotation
                 	if(x > parent.rightChild.element)
-                	{   parent = singleRotateRight(parent);
+                	{   message += ("Single rotation about" + parent.element);
+                		parent = singleRotateRight(parent);
                 	}
                 	
                 	//else item is leftmost, double rotation
                     else
-                    {   parent = doubleRotateRight(parent);
+                    { 	 message += ("Double rotation about" + parent.element);
+                    	parent = doubleRotateRight(parent);
                     }
                 }
             }
