@@ -24,19 +24,23 @@ public class MinHeap implements DSLTtree {
 	{	size++;
 		int index = size;
 		minHeap.get(index).element = element;     
-        percolateUp();	
+        percolateUp();
+        message = element + "was inserted. \n Percolate Up.";
 
 	}
 	
 	//Deletes minimum item
 	public void delete(int label)
-	{ 	//Overwrite first index with last index, decrement size
+	{ 	int minItem = minHeap.get(1).element;
+	
+		//Overwrite first index with last index, decrement size
 		minHeap.set(1, minHeap.get(size));
 		minHeap.set(size, null);
 		size--;
 		
 		//Percolate this item down the tree
 		percolateDown();
+		message = minItem + "was removed. \n Percolate Down.";
 	}
 	
 	

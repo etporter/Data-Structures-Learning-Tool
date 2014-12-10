@@ -31,12 +31,14 @@ public class AvlTree implements DSLTtree {
         //Calls internal delete method
         public void delete(int element)
         {	root = delete(element, root);
+        	message = "";
         }
         
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
         private Node delete(int element, Node parent)
-        {	if(find(element, parent) == true)
+        {	
+        	if(find(element, parent) == true)
         	{	
         		//If in left subtree
         		if(parent.element < element)
@@ -88,25 +90,28 @@ public class AvlTree implements DSLTtree {
         	 
         	    // Left Left Case
         	    if ((balance > 1) && (getBalance(parent.leftChild) >= 0))
+        	    {	message += ("Single Rotation about" + parent.element);
         	        return singleRotateLeft(parent);
-        	 
+        	    }
         	    // Left Right Case
         	    if ((balance > 1) && (getBalance(parent.leftChild) < 0))
-        	    {
+        	    {	message += ("Double Rotation about" + parent.element);
         	    	return doubleRotateLeft(parent);
         	    }
         	 
         	    // Right Right Case
         	    if ((balance < -1) && (getBalance(parent.rightChild) <= 0))
-        	        return singleRotateRight(root);
-        	 
+        	    {  	message += ("Single Rotation about" + parent.element);
+        	    	return singleRotateRight(root);
+        	    }
         	    // Right Left Case
         	    if ((balance < -1) && (getBalance(parent.rightChild) > 0))
-        	    {
+        	    {	message += ("Double Rotation about" + parent.element);
         	    	return doubleRotateRight(parent.rightChild);
         	    }
         	 
         	    return parent;
+        	    message += (element + "was deleted.");
         	}
         	
         	//Else, this element was not in the tree. Do nothing. 
@@ -179,6 +184,7 @@ public class AvlTree implements DSLTtree {
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)
         {	root = insert(element, root);
+        	message = "";
         }
         
         //Inserts x into tree, pass in root from outside. 
@@ -187,7 +193,8 @@ public class AvlTree implements DSLTtree {
         	//If this location is null, this is the a new node
         	//Works for root, and when an empty tree is reached
             if( parent == null )
-                parent = new Node(x);
+            {	parent = new Node(x);
+            }
             
             //If the item to be inserted is less than its parent, insert at left child.
             //Also, if item is equal, insert down left subtree.
@@ -204,7 +211,8 @@ public class AvlTree implements DSLTtree {
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
-                    {	parent = doubleRotateLeft(parent);
+                    {	message +=
+                    	parent = doubleRotateLeft(parent);
                     }
                 
                 	//Else item is leftmost, single rotation
