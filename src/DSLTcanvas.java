@@ -6,26 +6,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DSLTcanvas extends JPanel {
+
+	List<Node> nodes;
 	
-		  public DSLTcanvas()
-		  {
-		  }
+	public DSLTcanvas()
+	{
+	}
+	
+	public void updateList(List<Node> newNodes)
+	{
+		nodes = newNodes;
+	}
 		  
-		  private void drawNode(Graphics g, Node node)
-		  {
-			  int x;
-			  int y;
+	private void drawNode(Graphics g, Node node, int x, int y)
+	{
+		if (node.color == 0) g.setColor(Color.black);
+		else if(node.color == 1) g.setColor(Color.red);
 			  
-			  x = 200;
-			  y = 200;
-			  
-			  if (node.color == 0) g.setColor(Color.black);
-			  else if(node.color == 1) g.setColor(Color.red);
-			  
-			  g.drawOval(x, y, 50, 50);
-			  g.drawString(Integer.toString(node.element), x+10, y+30);
-		  }
+		g.drawOval(x, y, 50, 50);
+		g.drawString(Integer.toString(node.element), x+10, y+30);
+		
+		g.setColor(Color.black);
+	}
 		  
+<<<<<<< HEAD
+	public void paintComponent(Graphics g)
+	{		  
+		for(int i = 0; i<nodes.size(); i++)
+		{
+			if(i == 0)
+			{
+				drawNode(g,nodes.get(i), 450, 30);
+			}
+			else if (i == 1)
+			{
+				drawNode(g,nodes.get(i), 225, 90);
+				g.drawLine(475, 80, 275, 115);
+			}
+			else if (i == 2)
+			{
+				drawNode(g,nodes.get(i), 675, 90);
+				g.drawLine(475, 80, 675, 115);
+			}
+		}
+	}
+=======
 		  public void paintComponent(Graphics g/*, List<Node> nodes*/)
 		  {
 			  Node aNode = new Node(1000);
@@ -39,5 +64,6 @@ public class DSLTcanvas extends JPanel {
 				  drawNode(g,nodes.get(i));
 			  }*/
 		  }
+>>>>>>> FETCH_HEAD
 	
 }
