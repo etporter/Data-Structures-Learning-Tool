@@ -29,6 +29,28 @@ public class Tester {
 		    		System.out.println("Null Node");
 		    }
 		    
+		    System.out.println("");
+		    thisTree.delete(14);
+		    
+		    thisList = thisTree.allNodes();
+		    for(int i = 0; i<thisList.size(); i++)
+		    {	if(thisList.get(i) != AvlTree.empty)
+		    		System.out.println(thisList.get(i).element);
+		    	else
+		    		System.out.println("Null Node");
+		    }
+		    
+		    System.out.println("");
+		    thisTree.delete(7);
+		    thisTree.delete(8);
+		    thisTree.delete(1);
+		    thisList = thisTree.allNodes();
+		    for(int i = 0; i<thisList.size(); i++)
+		    {	if(thisList.get(i) != AvlTree.empty)
+		    		System.out.println(thisList.get(i).element);
+		    	else
+		    		System.out.println("Null Node");
+		    }
 		  }
 		
 

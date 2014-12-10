@@ -45,12 +45,16 @@ public class AvlTree implements DSLTtree {
         //Does nothing if x is not in tree
         private Node delete(int element, Node parent)
         {	
+        		if(parent == null)
+        		{	return parent;
+        		}
+        		
         		//If in left subtree
-        		if(parent.element < element)
+        		if(parent.element > element)
         		{	parent.leftChild = delete(element, parent.leftChild);
         		}
         		//If in right subtree
-        		else if(parent.element > element)
+        		else if(parent.element < element)
         		{	parent.rightChild = delete(element, parent.rightChild);
         		}
         		
@@ -89,7 +93,7 @@ public class AvlTree implements DSLTtree {
         		
         	    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
         	    //  this node became unbalanced)
-        	    int balance = getBalance(root);
+        	    int balance = getBalance(parent);
         	 
         	    // If this node becomes unbalanced, then there are 4 cases
         	 
@@ -101,7 +105,7 @@ public class AvlTree implements DSLTtree {
         	    // Left Right Case
         	    if ((balance > 1) && (getBalance(parent.leftChild) < 0))
         	    {	message += ("Double Rotation about" + parent.element);
-        	    	return doubleRotateLeft(parent);
+        	    	return doubleRotateRight(parent);
         	    }
         	 
         	    // Right Right Case
@@ -112,7 +116,7 @@ public class AvlTree implements DSLTtree {
         	    // Right Left Case
         	    if ((balance < -1) && (getBalance(parent.rightChild) > 0))
         	    {	message += ("Double Rotation about" + parent.element);
-        	    	return doubleRotateRight(parent.rightChild);
+        	    	return doubleRotateLeft(parent.rightChild);
         	    }
         	 
         	    return parent;
@@ -152,7 +156,8 @@ public class AvlTree implements DSLTtree {
         
         //Uses Lists to get a level order of all nodes
         public List<Node> allNodes()
-        {	List<Node> thisLevel = new ArrayList<Node>();
+        {	levelOrder.clear();
+        	List<Node> thisLevel = new ArrayList<Node>();
         	List<Node> nextLevel = new ArrayList<Node>();
         	
         	//Add root
@@ -256,7 +261,7 @@ public class AvlTree implements DSLTtree {
                 	
                 	//else item is leftmost, double rotation
                     else
-                    { 	 message += ("Double rotation about" + parent.element);
+                    { 	message += ("Double rotation about" + parent.element);
                     	parent = doubleRotateRight(parent);
                     }
                 }
@@ -298,9 +303,9 @@ public class AvlTree implements DSLTtree {
 
         //Single rotation of left sides
         private Node singleRotateLeft(Node parent)
-        {
+        {	
         	//Sets old left child as root, parent as right child and left subchild as left child.
-            Node newRoot = parent.leftChild;
+        	Node newRoot = parent.leftChild;
             parent.leftChild = newRoot.rightChild;
             newRoot.rightChild = parent;
             
