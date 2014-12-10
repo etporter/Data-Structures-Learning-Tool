@@ -92,17 +92,24 @@ public class AvlTree implements DSLTtree {
         	    	return doubleRotateRight(parent.rightChild);
         	    }
         	 
-        	    return root;
+        	    return parent;
         		
         		
         	}
-       
-        
+        	else
+        	{   message = element + "was not in the tree.";
+        		return parent;
+        	}
         }
 
+        
+        
         public int getBalance(Node parent)
-        {
-        	return -1;
+        {	if(parent == null)
+        		return 0;
+        	else
+        	{	return parent.getLCH() - parent.getRCH();
+        	}
         }
         
         //Finds the smallest element in a tree, used when finding a replacement
