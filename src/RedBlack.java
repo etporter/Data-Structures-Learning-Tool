@@ -33,22 +33,7 @@ public class RedBlack implements DSLTtree {
 			parent.rightChild = insert(element, parent.rightChild);
 		}
 
-		if(parent.rightChild.isRed() && ! parent.leftChild.isRed())
-		{	parent = leftRotate(parent);
-			
-		}
-		
-		if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
-		{	parent = rightRotate(parent);
-			
-		}
-		
-		if(parent.leftChild.isRed() && parent.rightChild.isRed())
-		{	parent = flipColors(parent);
-			
-		}
-		
-		parent.subTreeCount = size(parent.left) + size(parent.right) +1;
+		parent = balance(parent);
 		return parent;
 		
 	}
@@ -66,6 +51,26 @@ public class RedBlack implements DSLTtree {
 	{	return message;
 	}
 
+	private Node balance(Node parent)
+	{	if(parent.rightChild.isRed() && ! parent.leftChild.isRed())
+		{	parent = leftRotate(parent);
+		
+		}
+		
+		if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
+		{	parent = rightRotate(parent);
+			
+		}
+		
+		if(parent.leftChild.isRed() && parent.rightChild.isRed())
+		{	parent = flipColors(parent);
+			
+		}
+		
+		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) +1;
+		return parent;	
+	}
+	
 	
 	public Node leftRotate(Node parent)
 	{	Node newRoot = parent.rightChild;
@@ -74,7 +79,7 @@ public class RedBlack implements DSLTtree {
 		newRoot.color = newRoot.leftChild.color;
 		newRoot.leftChild.setColorRed();
 		newRoot.subTreeCount = parent.subTreeCount;
-		parent.subTreeCount = size(parent.leftChild) + size(parent.rightChild) + 1;
+		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) + 1;
 		return newRoot;
 		
 	}
@@ -86,7 +91,7 @@ public class RedBlack implements DSLTtree {
 		newRoot.color = newRoot.rightChild.color;
 		newRoot.rightChild.setColorRed();
 		newRoot.subTreeCount = parent.subTreeCount;
-		parent.subTreeCount = size(parent.leftChild) + size(parent.rightChild) + 1;
+		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) + 1;
 		return newRoot;
 		
 		
@@ -100,6 +105,15 @@ public class RedBlack implements DSLTtree {
 		return parent;
 		
 	}
+	
+    public int sizeSubtreeCount(Node parent) 
+    {	if(parent == null)
+    	{	return 0;
+    	}
+    	else
+    	{	return parent.subTreeCount;
+    	} 
+    }
 	
 }
 

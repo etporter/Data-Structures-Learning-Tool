@@ -59,6 +59,8 @@ public class Node
         		color = 1;
         	
         }
+        
+
 
         
     }
