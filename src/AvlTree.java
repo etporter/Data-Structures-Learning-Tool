@@ -30,16 +30,20 @@ public class AvlTree implements DSLTtree {
         //Delete stub, to match that of implementation.
         //Calls internal delete method
         public void delete(int element)
-        {	root = delete(element, root);
-        	message = "";
+        {	message = "";
+        	if(find(element, root) == true)
+        	{	message = element + "was deleted.";
+        		root = delete(element, root);
+        	}
+        	else
+        	{   message = element + "was not in the tree.";
+        	}
         }
         
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
         private Node delete(int element, Node parent)
         {	
-        	if(find(element, parent) == true)
-        	{	
         		//If in left subtree
         		if(parent.element < element)
         		{	parent.leftChild = delete(element, parent.leftChild);
@@ -111,16 +115,10 @@ public class AvlTree implements DSLTtree {
         	    }
         	 
         	    return parent;
-        	    message += (element + "was deleted.");
-        	}
-        	
-        	//Else, this element was not in the tree. Do nothing. 
-        	else
-        	{   message = element + "was not in the tree.";
-        		return parent;
-        	}
-        
         }
+        	
+        
+        
 
         
         //Gets a balance factor for this node. 
