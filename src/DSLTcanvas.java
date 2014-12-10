@@ -50,142 +50,142 @@ public class DSLTcanvas extends JPanel {
 			else if (i == 3)
 			{
 				drawNode(g,nodes.get(i), 113, 210);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(250, 170, 138, 210);
 			}
 			else if (i == 4)
 			{
 				drawNode(g,nodes.get(i), 338, 210);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(250, 170, 363, 210);
 			}
 			else if (i == 5)
 			{
 				drawNode(g,nodes.get(i), 562, 210);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(675, 120, 562, 210);
 			}
 			else if (i == 6)
 			{
 				drawNode(g,nodes.get(i), 788, 210);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(675, 120, 788, 210);
 			}
 			else if (i == 7)
 			{
 				drawNode(g,nodes.get(i), 56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(113, 210, 56, 300);
 			}
 			else if (i == 8)
 			{
 				drawNode(g,nodes.get(i), 113+56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(113, 210, 113+56, 300);
 			}
 			else if (i == 9)
 			{
 				drawNode(g,nodes.get(i), 338-56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338, 210, 338-56, 300);
 			}
 			else if (i == 10)
 			{
 				drawNode(g,nodes.get(i), 338+56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338, 210, 338+56, 300);
 			}
 			else if (i == 11)
 			{
 				drawNode(g,nodes.get(i), 562-56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562, 210, 562-56, 300);
 			}
 			else if (i == 12)
 			{
 				drawNode(g,nodes.get(i), 562+56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562, 210, 562+56, 300);
 			}
 			else if (i == 13)
 			{
 				drawNode(g,nodes.get(i), 788-56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(788, 210, 788-56, 300);
 			}
 			else if (i == 14)
 			{
 				drawNode(g,nodes.get(i), 788+56, 300);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(788, 210, 788+56, 300);
 			}
 			else if (i == 15)
 			{
 				drawNode(g,nodes.get(i), 28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(56, 300, 28, 390);
 			}
 			else if (i == 16)
 			{
 				drawNode(g,nodes.get(i), 56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(56, 300, 56+28, 390);
 			}
 			else if (i == 17)
 			{
 				drawNode(g,nodes.get(i), 113+56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(113+56, 300, 113+56-28, 390);
 			}
 			else if (i == 18)
 			{
 				drawNode(g,nodes.get(i), 112+56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(113+56, 300, 112+56+28, 390);
 			}
 			else if (i == 19)
 			{
 				drawNode(g,nodes.get(i), 338-56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338-56, 300, 338-56-28, 390);
 			}
 			else if (i == 20)
 			{
 				drawNode(g,nodes.get(i), 338-56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338-56, 300, 338-56+28, 390);
 			}
 			else if (i == 21)
 			{
 				drawNode(g,nodes.get(i), 338+56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338+56, 300, 338+56-28, 390);
 			}
 			else if (i == 22)
 			{
 				drawNode(g,nodes.get(i), 338+56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(338+56, 300, 338+56+28, 390);
 			}
 			else if (i == 23)
 			{
 				drawNode(g,nodes.get(i), 562-56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562-56, 300, 562-56-28, 390);
 			}
 			else if (i == 24)
 			{
 				drawNode(g,nodes.get(i), 562-56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562-56, 300, 562-56+28, 390);
 			}
 			else if (i == 25)
 			{
 				drawNode(g,nodes.get(i), 562+56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562+56, 300, 562+56-28, 390);
 			}
 			else if (i == 26)
 			{
 				drawNode(g,nodes.get(i), 562+56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(562+56, 300, 562+56+28, 390);
 			}
 			else if (i == 27)
 			{
 				drawNode(g,nodes.get(i), 788-56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(788-56, 300, 788-56-28, 390);
 			}
 			else if (i == 28)
 			{
 				drawNode(g,nodes.get(i), 788-56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(788-56, 300, 788-56+28, 390);
 			}
 			else if (i == 29)
 			{
 				drawNode(g,nodes.get(i), 788+56-28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(475, 80, 788+56-28, 390);
 			}
 			else if (i == 30)
 			{
 				drawNode(g,nodes.get(i), 788+56+28, 390);
-				g.drawLine(475, 80, 700, 120);
+				g.drawLine(475, 80, 788+56+28, 390);
 			}
 		}
 	}
