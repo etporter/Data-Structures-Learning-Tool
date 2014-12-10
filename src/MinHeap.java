@@ -29,17 +29,43 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	public void delete(int label)
-	{
+	{ 	int index = 1;
+    
+    	//While this item has a left child(index * 2)
+    	while (minHeap.get(index*2) != null)
+    	{
+    		
+	        // which of my children is smaller?
+	        int smallerChild = minHeap.get(index*2).element;
+	        
+	        // bubble with the smaller child, if I have a smaller child
+	        if (hasRightChild(index)
+	            && array[leftIndex(index)].compareTo(array[rightIndex(index)]) > 0) 
+	        {	smallerChild = rightIndex(index);
+	        } 
+	        
+	        if (array[index].compareTo(array[smallerChild]) > 0)
+	        {
+	            swap(index, smallerChild);
+	        } 
+	        else {
+	            // otherwise, get outta here!
+	            break;
+	        }
+	        
+	        // make sure to update loop counter/index of where last el is put
+	        index = smallerChild;
+    }        
 		
 	}
 	
 	
 	
 	public void percolateUp()
-	{	int index = this.size;
-		//While this index is not the root, and its parent is greater than the item
-    	while (hasParent(index) && (
-    			parent(index).compareTo(array[index]) > 0))
+	{	int index = size;
+		
+		//While this index is not the root, and its parent's value is greater than the item
+    	while (	(hasParent(index)) && (parentValue(index) > (minHeap.get(index).element)) )
     	{	//Swap the two items
     		swap(index, parentIndex(index));
     		index = parentIndex(index);
@@ -51,6 +77,11 @@ public class MinHeap implements DSLTtree {
 		
 	}
 	
+	public void swap(int i1, int i2)
+	{  	Node temporary = minHeap.get(i1);
+		minHeap.set(i1, minHeap.get(i2));
+		minHeap.set(i2, temporary);	
+	}
 	
 	//Returns index of this items parent
 	//This is why the index's start at 1, because then the truncated result of this division
@@ -60,6 +91,12 @@ public class MinHeap implements DSLTtree {
     	return retVal;
     }
 	
+    private int parentValue(int i)
+    {	int parentIndex = parentIndex(i);
+    	int retVal = minHeap.get(parentIndex).element;
+    	return retVal;	
+    }
+    
     //Returns true if this index is not the root
     protected boolean hasParent(int i) 
     {	boolean retVal = (i > 1);
