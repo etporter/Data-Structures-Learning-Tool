@@ -58,28 +58,44 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	public void percolateDown()
-	{	int startIndex = 1;
-		int child;
-		   Node tmp = minHeap.get(startIndex);
-
-	        for( ; startIndex * 2 <= size; startIndex = child )
-	        {	child = startIndex * 2;
-	            if( child != size && (minHeap.get(child+1).element < minHeap.get(child).element))
-	            {     
-	                child++;
-	            }
-	            if(minHeap.get(child).element < tmp.element)
-	         
-	            {     minHeap.set(startIndex, minHeap.get(child));
-	            
-	            
-	            }
-	            else
-	                break;
-	        }
-	        
-	        minHeap.set(startIndex, tmp);
+	{	Node moveDown = minHeap.get(1);
+		int index = 1;
+	
+		while (true) 
+		{	int lcIndex = index*2; 
+			int rcIndex = lcIndex + 1;
+			int child; 
+			
+			if (lcIndex > size) 
+		    {	break;
+		    }
+			
+			if (lcIndex == size) 
+			{	child = lcIndex;
+			} 
+	      
+			else if (minHeap.get(lcIndex).element < minHeap.get(rcIndex).element)
+	    	{	child = lcIndex;
+	    	} 
+	      
+			else 
+			{	child = rcIndex;
+			}
+	      
+	      
+			if (moveDown.element < minHeap.get(child).element)
+			{	break;
+			    // elt smaller than least child: correct position
+			}
+	      
+	      
+			else 
+			{	minHeap.set(index, minHeap.get(child));
+				index = child;              // move hole down
+			}
+	    }
 		
+		minHeap.set(index, moveDown);
 	}
 	
 	public void swap(int i1, int i2)
