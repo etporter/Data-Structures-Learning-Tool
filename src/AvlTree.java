@@ -87,21 +87,21 @@ public class AvlTree implements DSLTtree {
         	    // If this node becomes unbalanced, then there are 4 cases
         	 
         	    // Left Left Case
-        	    if (balance > 1 && getBalance(parent.leftChild) >= 0)
+        	    if ((balance > 1) && (getBalance(parent.leftChild) >= 0))
         	        return singleRotateLeft(parent);
         	 
         	    // Left Right Case
-        	    if (balance > 1 && getBalance(parent.leftChild) < 0)
+        	    if ((balance > 1) && (getBalance(parent.leftChild) < 0))
         	    {
         	    	return doubleRotateLeft(parent);
         	    }
         	 
         	    // Right Right Case
-        	    if (balance < -1 && getBalance(parent.rightChild) <= 0)
+        	    if ((balance < -1) && (getBalance(parent.rightChild) <= 0))
         	        return singleRotateRight(root);
         	 
         	    // Right Left Case
-        	    if (balance < -1 && getBalance(parent.rightChild) > 0)
+        	    if ((balance < -1) && (getBalance(parent.rightChild) > 0))
         	    {
         	    	return doubleRotateRight(parent.rightChild);
         	    }

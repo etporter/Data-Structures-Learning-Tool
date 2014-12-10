@@ -7,6 +7,8 @@ public class Tester {
 		    Window thisWindow = new Window();
 		    thisWindow.setSize(1500,800);
 		    thisWindow.setVisible(true);
+		    
+		    
 		  }
 		
 
