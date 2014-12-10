@@ -83,7 +83,7 @@ public class AvlTree implements DSLTtree {
         			}	
         		}
         		
-        		//If tree only has one node at this point, return
+        		//If tree is now empty, ie. parent has been set to null
         		if(parent == null)
         		{	return parent;
         		}
@@ -91,12 +91,47 @@ public class AvlTree implements DSLTtree {
         		parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;
         		
         		
+        		   if(parent.getLCH() - parent.getRCH() > 1)
+                   {	
+                   	//if item is rightmost from parent, double rotation
+                       if(element > parent.leftChild.element)
+                       {	message += ("Double rotation about" + parent.element);
+                       	parent = doubleRotateLeft(parent);
+                       }
+                   
+                   	//Else item is leftmost, single rotation
+                       else
+                       {	message += ("Single rotation about" + parent.element);
+                       	parent = singleRotateLeft(parent);
+                       }
+                   }
+        		   
+        		   if(parent.getRCH() - parent.getLCH() > 1)
+                   {  
+                   	//if item is rightmost, single rotation
+                   	if(element > parent.rightChild.element)
+                   	{   message += ("Single rotation about" + parent.element);
+                   		parent = singleRotateRight(parent);
+                   	}
+                   	
+                   	//else item is leftmost, double rotation
+                       else
+                       { 	message += ("Double rotation about" + parent.element);
+                       	parent = doubleRotateRight(parent);
+                       }
+                   }
+        		   
+        		   
+        		   
         	    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
-        	    //  this node became unbalanced)
+        	   /* //  this node became unbalanced)
         	    int balance = getBalance(parent);
         	 
         	    // If this node becomes unbalanced, then there are 4 cases
         	 
+        	    
+        	    
+        
         	    // Left Left Case
         	    if ((balance > 1) && (getBalance(parent.leftChild) >= 0))
         	    {	message += ("Single Rotation about" + parent.element);
@@ -117,7 +152,7 @@ public class AvlTree implements DSLTtree {
         	    if ((balance < -1) && (getBalance(parent.rightChild) > 0))
         	    {	message += ("Double Rotation about" + parent.element);
         	    	return doubleRotateLeft(parent.rightChild);
-        	    }
+        	    }*/
         	 
         	    return parent;
         }
@@ -245,7 +280,7 @@ public class AvlTree implements DSLTtree {
             }
             
             //Same process as left side, but now on right side
-            else //if(x > parent.element)
+            else if(x > parent.element)
             {
             	//recursion to insert down right subtree
                 parent.rightChild = insert( x, parent.rightChild );
@@ -306,7 +341,10 @@ public class AvlTree implements DSLTtree {
         {	
         	//Sets old left child as root, parent as right child and left subchild as left child.
         	Node newRoot = parent.leftChild;
+        	//if(newRoot.rightChild != null)
+            {
             parent.leftChild = newRoot.rightChild;
+            }
             newRoot.rightChild = parent;
             
             //updates heights based on max of children. 
@@ -324,7 +362,7 @@ public class AvlTree implements DSLTtree {
         {	
         	//Sets old right child as root, parent as left child and right subchild as right child.
             Node newRoot = parent.rightChild;
-            parent.rightChild = newRoot.leftChild;
+            parent.rightChild = newRoot.leftChild; 
             newRoot.leftChild = parent;
             
             //updates heights based on max of children. 
