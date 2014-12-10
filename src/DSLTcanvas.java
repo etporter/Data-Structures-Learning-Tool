@@ -33,6 +33,7 @@ public class DSLTcanvas extends JPanel {
 			  
 			  drawNode(g, aNode);
 			  
+			  //Make sure we check for null nodes in this
 			  /*for(int i = 0; i<nodes.size(); i++)
 			  {
 				  drawNode(g,nodes.get(i));

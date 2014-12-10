@@ -62,7 +62,7 @@ public class RedBlack implements DSLTtree {
 	{	
 		if(element < parent.element)
 		{	if(!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
-			{	parent = moveRedLeft(parent);
+			{	parent = moveLeft(parent);
 			}
 				
 				parent.leftChild = delete(element, parent.leftChild);	
@@ -79,7 +79,7 @@ public class RedBlack implements DSLTtree {
         	}
         	
         	if(!parent.rightChild.isRed() && !parent.rightChild.leftChild.isRed())
-        	{	parent = moveRedRight(parent);
+        	{	parent = moveRight(parent);
         	}
         	
         	if(element == parent.element)
@@ -89,13 +89,51 @@ public class RedBlack implements DSLTtree {
         		
         	}
         		
-        else
-        	parent.rightChild = delete(element, parent.rightChild);
-    }
+        	else
+        		parent.rightChild = delete(element, parent.rightChild);
+		}
  
 		parent = balance(parent);
 		return parent;
 	}
+	
+	private Node moveLeft(Node parent)
+	{	parent = flipColors(parent);
+		if(parent.rightChild.leftChild.isRed())
+		{	parent.rightChild = rightRotate(parent.rightChild);
+			parent = leftRotate(parent);	
+		}
+		return parent;	
+	}
+	
+	private Node moveRight(Node parent)
+	{	parent = flipColors(parent);
+		if(parent.leftChild.leftChild.isRed())
+		{	parent = rightRotate(parent);
+		}
+		return parent;	
+	}
+	
+	private Node findMin(Node parent)
+	{	if (parent.leftChild == null) 
+		{	return parent;
+		}
+    	else
+    	{	return findMin(parent.leftChild); 
+    	}
+		
+	}
+	
+	
+    private Node deleteMin(Node parent) 
+    {	if (parent.leftChild == null)
+            return null;
+        if (!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
+        {	parent = moveLeft(parent);
+        }
+        parent.leftChild = deleteMin(parent.leftChild);
+        return balance(parent);
+    }
 	
 	public List<Node> allNodes()
 	{	List<Node> thisLevel = new ArrayList<Node>();
