@@ -45,6 +45,11 @@ public class Node
         	
         }
         
+        public void setColorBlack()
+        {	color = 0;
+        	
+        }
+        
         public boolean isRed()
         {	if(color == 1)
         		return true;

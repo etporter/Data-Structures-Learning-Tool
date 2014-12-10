@@ -39,13 +39,92 @@ public class RedBlack implements DSLTtree {
 	}
 	
 	public void delete(int element)
-	{
+	{   message = "";
+    	if(find(element, root) == true)
+    	{	message = element + "was deleted.";
+    		if (!root.leftChild.isRed() && !root.rightChild.isRed())
+    		{	root.setColorRed();
+    		}
+    		
+    		root = delete(element, root);
+    		
+    		if (root != null) 
+    		{	root.setColorBlack();
+    		}
+       	}
+    	
+    	else
+    	{   message = element + "was not in the tree.";
+    	}		
+	}
+	
+	private Node delete(int element, Node parent)
+	{	
+		if(element < parent.element)
+		{	if(!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
+			{	parent = moveRedLeft(parent);
+			}
+				
+				parent.leftChild = delete(element, parent.leftChild);	
+		}
 		
+		else 
+		{	if(parent.leftChild.isRed())
+			{	parent = rightRotate(parent);
+			
+			}
+    	
+        	if(parent.element == element && (parent.rightChild == null))
+        	{	return null;
+        	}
+        	
+        	if(!parent.rightChild.isRed() && !parent.rightChild.leftChild.isRed())
+        	{	parent = moveRedRight(parent);
+        	}
+        	
+        	if(element == parent.element)
+        	{	Node temp = findMin(parent.rightChild);
+        		parent.element = temp.element;
+        		parent.rightChild = deleteMin(parent.rightChild);
+        		
+        	}
+        		
+        else
+        	parent.rightChild = delete(element, parent.rightChild);
+    }
+ 
+		parent = balance(parent);
+		return parent;
 	}
 	
 	public List<Node> allNodes()
-	{	return levelOrder;
+	{	List<Node> thisLevel = new ArrayList<Node>();
+		List<Node> nextLevel = new ArrayList<Node>();
+		
+		//Add root
+		thisLevel.add(root);
+	
+		//While this level is not empty
+		while (!thisLevel.isEmpty()) 
+		{	Iterator<Node> iter = thisLevel.iterator();
+		
+			//While there is a next item
+	        while (iter.hasNext()) 
+	        {	//Add the children of the next node
+	        	Node currentNode = iter.next();
+	            nextLevel.add(currentNode.leftChild);
+	            nextLevel.add(currentNode.rightChild);
+	            levelOrder.add(currentNode);
+	        }
+	        
+	        //Sets this level to be next row down, creates a new next level
+	        thisLevel = nextLevel;
+	        nextLevel = new ArrayList<Node>();
+	
+		}
+		return levelOrder;
 	}
+	
 	
 	public String getMessage()
 	{	return message;
@@ -92,14 +171,11 @@ public class RedBlack implements DSLTtree {
 		newRoot.rightChild.setColorRed();
 		newRoot.subTreeCount = parent.subTreeCount;
 		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) + 1;
-		return newRoot;
-		
-		
+		return newRoot;	
 	}
 	
 	public Node flipColors(Node parent)
-	{	
-		parent.flipColor();
+	{	parent.flipColor();
 		parent.leftChild.flipColor();
 		parent.rightChild.flipColor();
 		return parent;
@@ -114,6 +190,25 @@ public class RedBlack implements DSLTtree {
     	{	return parent.subTreeCount;
     	} 
     }
-	
+
+    private boolean find(int x, Node node)
+    {
+        while( node != null )
+            if(x < node.element)
+            {	//Check left side if less
+                node = node.leftChild;
+            }
+            else if(x > node.element)
+            {	//Check right side if greater
+            	node = node.rightChild;
+            }
+            else
+            {	//Match
+                return true;    
+            }
+        
+        //Hit a null node
+        return false;
+    }
 }
 
