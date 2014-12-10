@@ -21,73 +21,88 @@ public class AvlTree implements DSLTtree {
         
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
-        public void delete(int element, Node parent)
+        public Node delete(int element, Node parent)
         {	if(find(element, parent) == true)
-        	{	//If in left subtree
+        	{	
+        		//If in left subtree
         		if(parent.element < element)
-        		{	delete(element, parent.leftChild);
+        		{	parent.leftChild = delete(element, parent.leftChild);
         		}
         		//If in right subtree
         		else if(parent.element > element)
-        		{	delete(element, parent.rightChild);
+        		{	parent.rightChild = delete(element, parent.rightChild);
         		}
+        		
         		//else this is the key to be deleted
         		else
-        		{
+        		{	//if one or less children
+        			if(parent.leftChild == null || parent.rightChild == null)
+        			{	//if zero children, set to null
+        				if(parent.leftChild == null && parent.rightChild == null)
+        				{	parent = null;   				
+        				}
+        				//else pick the child and overwrite the parent
+        				else
+        				{	if(parent.leftChild != null)
+        						parent = parent.leftChild;
+        					else
+        						parent = parent.rightChild;		
+        				}
+        			}
         			
-        		}
-        	}
-        	else
-        	{	message = element + "was not in the tree.";
-        	}
-        	
-        
-        
-        
-        
-        
-        
-        
-        	//Element was not in the tree
-        	if(foundNode == null)
-        	{	
-        	}
-        	else
-        	{	//Else element is in tree. If it is a leaf, just delete it.
-        		if(foundNode.leftChild == null && foundNode.rightChild == null)
-        		{	foundNode = null;    			
+        			//else the node has two children
+        			else
+        			{	Node temp = findSmallest(parent.rightChild);
+        				parent.element = temp.element;
+        				parent.rightChild = delete(temp.element, parent.rightChild);
+        			}	
         		}
         		
-        		//Else it is not just a leaf, so do some code witchcraft. 
-        		else 
-        		{	int replacement = findReplacement(foundNode);
-        			foundNode.element = replacement;	
+        		//If tree only has one node at this point, return
+        		if(parent == null)
+        		{	return parent;
         		}
-        		message = element + "was removed from the tree.";
         		
-        		root = updateTree(root);
+        		parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;
+        		
+        		
+        	    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to check whether
+        	    //  this node became unbalanced)
+        	    int balance = getBalance(root);
+        	 
+        	    // If this node becomes unbalanced, then there are 4 cases
+        	 
+        	    // Left Left Case
+        	    if (balance > 1 && getBalance(parent.leftChild) >= 0)
+        	        return singleRotateLeft(parent);
+        	 
+        	    // Left Right Case
+        	    if (balance > 1 && getBalance(parent.leftChild) < 0)
+        	    {
+        	    	return doubleRotateLeft(parent);
+        	    }
+        	 
+        	    // Right Right Case
+        	    if (balance < -1 && getBalance(parent.rightChild) <= 0)
+        	        return singleRotateRight(root);
+        	 
+        	    // Right Left Case
+        	    if (balance < -1 && getBalance(parent.rightChild) > 0)
+        	    {
+        	    	return doubleRotateRight(parent.rightChild);
+        	    }
+        	 
+        	    return root;
+        		
+        		
         	}
+       
+        
         }
-        
-        //Finds replacement node. Only called when both children are not null. 
-        public int findReplacement(Node toRemove)
-	    {	int replacement = -1;
-	       
-        	// If the right subtree does not exist, the left child becomes this node.
-        	if (toRemove.leftChild != null && toRemove.rightChild == null) 
-        	{	replacement = toRemove.leftChild.element;
-        	} 
-        	//Else the right subtree exists, so we need to find the replacement
-        	else
-        	{	Node replacementNode = findSmallest(toRemove.rightChild);	
-        		if(replacementNode.rightChild != null)
-        		{	replacement = replacementNode.element;
-        			replacementNode = replacementNode.rightChild;
-        		}
-        	}
-        	
-        	return replacement;
-        	
+
+        public int getBalance(Node parent)
+        {
+        	return -1;
         }
         
         //Finds the smallest element in a tree, used when finding a replacement
@@ -171,12 +186,12 @@ public class AvlTree implements DSLTtree {
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
-                    {	parent = doubleRotationLeft(parent);
+                    {	parent = doubleRotateLeft(parent);
                     }
                 
                 	//Else item is leftmost, single rotation
                     else
-                    {	parent = singleRotationLeft(parent);
+                    {	parent = singleRotateLeft(parent);
                     }
                 }
                         
@@ -238,7 +253,7 @@ public class AvlTree implements DSLTtree {
 
 
         //Single rotation of left sides
-        private Node singleRotationLeft(Node parent)
+        private Node singleRotateLeft(Node parent)
         {
         	//Sets old left child as root, parent as right child and left subchild as left child.
             Node newRoot = parent.leftChild;
@@ -274,10 +289,10 @@ public class AvlTree implements DSLTtree {
         
         //Double rotation on left side
         //Accomplished by rotating the left child on the right and then rotating the result to the left
-        private Node doubleRotationLeft(Node parent)
+        private Node doubleRotateLeft(Node parent)
         {
             parent.leftChild = singleRotateRight(parent.leftChild);
-            return singleRotationLeft(parent);
+            return singleRotateLeft(parent);
         }
 
        
@@ -285,7 +300,7 @@ public class AvlTree implements DSLTtree {
         //Accomplished by rotating the right child on the left and then rotating the result to the right
         private Node doubleRotateRight(Node parent)
         {
-            parent.rightChild = singleRotationLeft(parent.rightChild);
+            parent.rightChild = singleRotateLeft(parent.rightChild);
             return singleRotateRight(parent);
         }
 
