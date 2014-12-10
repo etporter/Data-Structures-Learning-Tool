@@ -59,10 +59,20 @@ public class Window extends JFrame {
 		Node node1 = new Node(2000);
 		Node node2 = new Node(1000);
 		Node node3 = new Node(3000);
+		Node node4 = new Node(3000);
+		Node node5 = new Node(3000);
+		Node node6 = new Node(3000);
+		Node node7 = new Node(3000);
+		Node node8 = new Node(3000);
 		node2.setColorRed();
 		nodeList.add(node1);
 		nodeList.add(node2);
 		nodeList.add(node3);
+		nodeList.add(node4);
+		nodeList.add(node5);
+		nodeList.add(node6);
+		nodeList.add(node7);
+		nodeList.add(node8);
 		treeDisplay.updateList(nodeList);
 		
 		windowLayout.add(sidePanel, BorderLayout.WEST);

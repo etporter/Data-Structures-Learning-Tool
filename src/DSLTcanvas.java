@@ -39,13 +39,18 @@ public class DSLTcanvas extends JPanel {
 			}
 			else if (i == 1)
 			{
-				drawNode(g,nodes.get(i), 225, 90);
-				g.drawLine(475, 80, 275, 115);
+				drawNode(g,nodes.get(i), 225, 120);
+				g.drawLine(475, 80, 250, 120);
 			}
 			else if (i == 2)
 			{
-				drawNode(g,nodes.get(i), 675, 90);
-				g.drawLine(475, 80, 675, 115);
+				drawNode(g,nodes.get(i), 675, 120);
+				g.drawLine(475, 80, 700, 120);
+			}
+			else if (i == 3)
+			{
+				drawNode(g,nodes.get(i), 113, 310);
+				g.drawLine(475, 80, 700, 120);
 			}
 		}
 	}
