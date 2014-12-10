@@ -17,13 +17,12 @@ public class Node
         	color = 0;
         }
 
-        
+
         public int getLCH()
         {	if(leftChild != null)
 				return leftChild.height;
         	else
         		return -1;
-        	
         }
         
         public int getRCH()
@@ -31,7 +30,6 @@ public class Node
 				return rightChild.height;
     		else
     			return -1;
-        	
         }
         
         public void setColorRed()

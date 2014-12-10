@@ -2,34 +2,44 @@ import java.lang.Math;
 
 public class AvlTree implements DSLTtree {
 	
-        private Node root;
+        public Node root;
+        public String message = "";
+        public Node[] levelOrder;
         
-        /**
-         * Construct the tree.
-         */
+        //Constructor, empty tree, no root.
         public AvlTree( )
         {	root = null;
         }
 
-        /**
-         * Insert into the tree; duplicates are ignored.
-         * @param x the item to insert.
-         */
-        public void insert(int x)
-        {	root = insert(x, root);
+        //Constructor, with element set
+        public AvlTree(int element)
+        {	root = new Node(element);
         }
-
-        /**
-         * Remove from the tree. Nothing is done if x is not found.
-         * @param x the item to remove.
-         */
-        public void remove( int x )
+        
+        //Removes first found instance of x from tree
+        //Does nothing if x is not in tree
+        public void delete(int element)
         {
-            System.out.println( "Sorry, remove unimplemented" );
         }
-
-        //Inserts x into tree
-        private Node insert(int x, Node parent)
+        
+        //Returns String to update learning tool of what happened in tree
+        public String getMessage()
+        {
+        	return message;
+        }
+        
+        public Node[] allNodes()
+        {
+        	return levelOrder;
+        }
+        
+        //Insert method, to follow interface. Implemented as a return function below for recursion.
+        public void insert(int element)
+        {	root = insert(element, root);
+        }
+        
+        //Inserts x into tree, pass in root from outside. 
+        public Node insert(int x, Node parent)
         {
         	//If this location is null, this is the a new node
         	//Works for root, and when an empty tree is reached
