@@ -2,6 +2,8 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DSLTcanvas extends JPanel {
 	
@@ -9,15 +11,32 @@ public class DSLTcanvas extends JPanel {
 		  {
 		  }
 		  
-		  private void drawNode(Graphics g)
+		  private void drawNode(Graphics g, Node node)
 		  {
-			  g.setColor(Color.black);
-			  g.drawOval(200, 200, 40, 40);
+			  int x;
+			  int y;
+			  
+			  x = 200;
+			  y = 200;
+			  
+			  if (node.color == 0) g.setColor(Color.black);
+			  else if(node.color == 1) g.setColor(Color.red);
+			  
+			  g.drawOval(x, y, 50, 50);
+			  g.drawString(Integer.toString(node.element), x+10, y+30);
 		  }
 		  
-		  public void paintComponent(Graphics g)
+		  public void paintComponent(Graphics g/*, List<Node> nodes*/)
 		  {
-			  drawNode(g);
+			  Node aNode = new Node(1000);
+			  aNode.setColorRed();
+			  
+			  drawNode(g, aNode);
+			  
+			  /*for(int i = 0; i<nodes.size(); i++)
+			  {
+				  drawNode(g,nodes.get(i));
+			  }*/
 		  }
 	
 }
