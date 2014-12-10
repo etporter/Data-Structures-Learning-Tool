@@ -1,10 +1,13 @@
 import java.lang.Math;
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AvlTree implements DSLTtree {
 	
         public Node root;
         public String message = "";
-        public Node[] levelOrder;
+        public List<Node> levelOrder;
         
         //Constructor, empty tree, no root.
         public AvlTree( )
@@ -28,10 +31,37 @@ public class AvlTree implements DSLTtree {
         	return message;
         }
         
-        public Node[] allNodes()
-        {
+        
+        
+        //Uses Lists to get a level order of all nodes
+        public List<Node> allNodes()
+        {	List<Node> thisLevel = new ArrayList<Node>();
+        	List<Node> nextLevel = new ArrayList<Node>();
+        	
+        	//Add root
+        	thisLevel.add(root);
+
+        	//While this level is not empty
+        	while (!thisLevel.isEmpty()) 
+        	{	Iterator<Node> iter = thisLevel.iterator();
+        	
+        		//While there is a next item
+	            while (iter.hasNext()) 
+	            {	//Add the children of the next node
+	            	Node currentNode = iter.next();
+	                nextLevel.add(currentNode.leftChild);
+	                nextLevel.add(currentNode.rightChild);
+	                levelOrder.add(currentNode);
+	            }
+	            
+	            //Sets this level to be next row down, creates a new next level
+	            thisLevel = nextLevel;
+	            nextLevel = new ArrayList<Node>();
+
+        	}
         	return levelOrder;
         }
+        
         
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)

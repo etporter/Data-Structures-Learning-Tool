@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface DSLTtree {
 	
 	public void insert(int label);
@@ -7,7 +9,7 @@ public interface DSLTtree {
 	/**
 	 * @return the integers stored in the tree in level order
 	 */
-	public Node[] allNodes();
+	public List<Node> allNodes();
 	
 	public String getMessage();
 }
