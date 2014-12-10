@@ -9,39 +9,14 @@ public class Node
 	    int color;				// 0 for black, 1 for red
     
         // Constructors
-        public Node( int thisElement )
-        {	element  = thisElement;
-        	leftChild  = null;
-        	rightChild   = null;
-        	height   = 0;
+        public Node(int thisElement)
+        {	element = thisElement;
+        	leftChild = null;
+        	rightChild = null;
+        	height = 0;
         	color = 0;
-        	
-        	//this(element, null, null);
         }
 
-      //  Node( int thisElement, Node left, Node right )
-        {
-            
-        }
-
-
-        public int maxHeightChildren()
-        {	
-        	int thisHeight = 0;
-        	if(leftChild != null && rightChild != null)
-	        {	thisHeight = Math.max(leftChild.height, rightChild.height);
-        	}
-        	else if(leftChild == null)
-        	{	if(rightChild != null)
-        			thisHeight = rightChild.height;
-        	}
-        	else
-        	{	if(leftChild != null)
-        			thisHeight = leftChild.height;
-        	}
-        	return thisHeight;
-        	
-        }
         
         public int getLCH()
         {	if(leftChild != null)
@@ -59,5 +34,21 @@ public class Node
         	
         }
         
+        public void setColorRed()
+        {	color = 1;
+        	
+        }
+        
+        public void setColorBlack()
+        {	color = 0;
+        }
+        
+        public boolean isRed()
+        {	if(color == 1)
+        		return true;
+        	else
+        		return false;
+        }
+
         
     }

@@ -15,9 +15,8 @@ public class AvlTree implements DSLTtree {
          * Insert into the tree; duplicates are ignored.
          * @param x the item to insert.
          */
-        public void insert( int x )
-        {
-            root = insert( x, root );
+        public void insert(int x)
+        {	root = insert(x, root);
         }
 
         /**
@@ -27,17 +26,6 @@ public class AvlTree implements DSLTtree {
         public void remove( int x )
         {
             System.out.println( "Sorry, remove unimplemented" );
-        }
-
-
-        /**
-         * Internal method to get element field.
-         * @param t the node.
-         * @return the element field or null if t is null.
-         */
-        private int elementAt( Node t )
-        {
-            return t == null ? null : t.element;
         }
 
         //Inserts x into tree
@@ -129,58 +117,56 @@ public class AvlTree implements DSLTtree {
         }
 
 
-        /**
-         * Rotate binary tree node with left child.
-         * For AVL trees, this is a single rotation for case 1.
-         * Update heights, then return new root.
-         */
-        private static Node singleRotationLeft( Node k2 )
+        //Single rotation of left sides
+        private Node singleRotationLeft(Node parent)
         {
-            Node k1 = k2.leftChild;
-            k2.leftChild = k1.rightChild;
-            k1.rightChild = k2;
-            k2.height = Math.max(k2.getLCH(), k2.getRCH()) + 1;
-            k1.height = Math.max(k1.getLCH(), k2.height) + 1;
-            return k1;
+        	//Sets old left child as root, parent as right child and left subchild as left child.
+            Node newRoot = parent.leftChild;
+            parent.leftChild = newRoot.rightChild;
+            newRoot.rightChild = parent;
+            
+            //updates heights based on max of children. 
+            parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;
+            newRoot.height = Math.max(newRoot.getLCH(), parent.height) + 1;
+            
+            //returns newRoot for recursion in other methods
+            return newRoot;
         }
 
-        /**
-         * Rotate binary tree node with right child.
-         * For AVL trees, this is a single rotation for case 4.
-         * Update heights, then return new root.
-         */
-        private static Node singleRotateRight( Node k1 )
-        {
-            Node k2 = k1.rightChild;
-            k1.rightChild = k2.leftChild;
-            k2.leftChild = k1;
-            k1.height = Math.max(k1.getLCH(), k1.getRCH()) + 1;
-            k2.height = Math.max(k2.getRCH(), k1.height) + 1;
-            return k2;
+        
+        
+        //Single rotation of right sides
+        private Node singleRotateRight(Node parent)
+        {	
+        	//Sets old right child as root, parent as left child and right subchild as right child.
+            Node newRoot = parent.rightChild;
+            parent.rightChild = newRoot.leftChild;
+            newRoot.leftChild = parent;
+            
+            //updates heights based on max of children. 
+            parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;
+            newRoot.height = Math.max(newRoot.getRCH(), parent.height) + 1;
+            
+            //returns newRoot for recursion in other methods
+            return newRoot;
         }
 
-        /**
-         * Double rotate binary tree node: first left child
-         * with its right child; then node k3 with new left child.
-         * For AVL trees, this is a double rotation for case 2.
-         * Update heights, then return new root.
-         */
-        private static Node doubleRotationLeft( Node k3 )
+        
+        //Double rotation on left side
+        //Accomplished by rotating the left child on the right and then rotating the result to the left
+        private Node doubleRotationLeft(Node parent)
         {
-            k3.leftChild = singleRotateRight( k3.leftChild );
-            return singleRotationLeft( k3 );
+            parent.leftChild = singleRotateRight(parent.leftChild);
+            return singleRotationLeft(parent);
         }
 
-        /**
-         * Double rotate binary tree node: first right child
-         * with its left child; then node k1 with new right child.
-         * For AVL trees, this is a double rotation for case 3.
-         * Update heights, then return new root.
-         */
-        private static Node doubleRotateRight( Node k1 )
+       
+        //Double rotation on right side
+        //Accomplished by rotating the right child on the left and then rotating the result to the right
+        private Node doubleRotateRight(Node parent)
         {
-            k1.rightChild = singleRotationLeft( k1.rightChild );
-            return singleRotateRight( k1 );
+            parent.rightChild = singleRotationLeft(parent.rightChild);
+            return singleRotateRight(parent);
         }
 
 }
