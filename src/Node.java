@@ -7,6 +7,7 @@ public class Node
 	    Node rightChild;        // Right child
 	    int height;       		// Height
 	    int color;				// 0 for black, 1 for red
+	    int subTreeCount; 		// Count of subtrees for Red/Black
     
         // Constructors
         public Node(int thisElement)
@@ -17,6 +18,13 @@ public class Node
         	color = 0;
         }
 
+        public Node(int thisElement, int thisColor)
+        {	element = thisElement;
+        	leftChild = null;
+        	rightChild = null;
+        	height = 0;
+        	color = thisColor;
+        }
 
         public int getLCH()
         {	if(leftChild != null)
@@ -37,15 +45,19 @@ public class Node
         	
         }
         
-        public void setColorBlack()
-        {	color = 0;
-        }
-        
         public boolean isRed()
         {	if(color == 1)
         		return true;
         	else
         		return false;
+        }
+        
+        public void flipColor()
+        {	if(color == 1)
+        		color = 0;
+        	else
+        		color = 1;
+        	
         }
 
         
