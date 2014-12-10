@@ -29,7 +29,6 @@ public class DSLTcanvas extends JPanel {
 		g.setColor(Color.black);
 	}
 		  
-<<<<<<< HEAD
 	public void paintComponent(Graphics g)
 	{		  
 		for(int i = 0; i<nodes.size(); i++)
@@ -50,20 +49,5 @@ public class DSLTcanvas extends JPanel {
 			}
 		}
 	}
-=======
-		  public void paintComponent(Graphics g/*, List<Node> nodes*/)
-		  {
-			  Node aNode = new Node(1000);
-			  aNode.setColorRed();
-			  
-			  drawNode(g, aNode);
-			  
-			  //Make sure we check for null nodes in this
-			  /*for(int i = 0; i<nodes.size(); i++)
-			  {
-				  drawNode(g,nodes.get(i));
-			  }*/
-		  }
->>>>>>> FETCH_HEAD
 	
 }
