@@ -14,7 +14,8 @@ public class AvlTree implements DSLTtree {
 	
         public Node root;
         public String message = "";
-        public List<Node> levelOrder;
+        public List<Node> levelOrder =  new ArrayList<Node>(20);
+        public static Node empty;
         
         
         //Constructor, empty tree, no root.
@@ -165,16 +166,32 @@ public class AvlTree implements DSLTtree {
 	            while (iter.hasNext()) 
 	            {	//Add the children of the next node
 	            	Node currentNode = iter.next();
-	                nextLevel.add(currentNode.leftChild);
-	                nextLevel.add(currentNode.rightChild);
-	                levelOrder.add(currentNode);
+	            	if(currentNode == empty)
+	            		{	levelOrder.add(empty);
+	            		}
+	            	else if(currentNode != null && currentNode != empty) 	
+	            	{	levelOrder.add(currentNode);
+	            	
+		                if(currentNode.leftChild == null)
+		                {	nextLevel.add(empty);}
+		                else
+		                {	nextLevel.add(currentNode.leftChild);}
+		                
+		                if	(currentNode.rightChild == null)
+		                {	nextLevel.add(empty);}
+		                else
+		                {	nextLevel.add(currentNode.rightChild);}
+		               
+	            	}
+	            
 	            }
+        	
 	            
 	            //Sets this level to be next row down, creates a new next level
 	            thisLevel = nextLevel;
 	            nextLevel = new ArrayList<Node>();
-
         	}
+        	
         	return levelOrder;
         }
         

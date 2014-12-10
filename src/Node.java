@@ -10,6 +10,14 @@ public class Node
 	    int subTreeCount; 		// Count of subtrees for Red/Black
     
         // Constructors
+	    public Node()
+	    {	element = -1;
+    		leftChild = null;
+    		rightChild = null;
+    		height = 0;
+    		color = 0;	
+	    }
+	    
         public Node(int thisElement)
         {	element = thisElement;
         	leftChild = null;
