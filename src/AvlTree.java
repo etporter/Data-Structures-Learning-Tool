@@ -22,7 +22,63 @@ public class AvlTree implements DSLTtree {
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
         public void delete(int element)
+        {	Node foundNode = find(element, root);
+        
+        	//Element was not in the tree
+        	if(foundNode == null)
+        	{	message = element + "was not in the tree.";
+        	}
+        	else
+        	{	//Else element is in tree. If it is a leaf, just delete it.
+        		if(foundNode.leftChild == null && foundNode.rightChild == null)
+        		{	foundNode = null;
+        		}
+        		//Else it is not just a leaf, so do some code witchcraft. 
+        		else 
+        		{	int replacement = findReplacement(foundNode);
+        			foundNode.element = replacement;	
+        		}
+        		
+        		
+        		
+        		message = element + "was removed from the tree.";
+        	}
+        }
+        
+        //Finds replacement node. Only called when both children are not null. 
+        public int findReplacement(Node toRemove)
+	    {	int replacement = -1;
+	       
+        	// If the right subtree does not exist, the left child becomes this node.
+        	if (toRemove.leftChild != null && toRemove.rightChild == null) 
+        	{	replacement = toRemove.leftChild.element;
+        	} 
+        	//Else the right subtree exists, so we need to find the replacement
+        	else
+        	{	Node replacementNode = findSmallest(toRemove.rightChild);	
+        		if(replacementNode.rightChild != null)
+        		{	replacement = replacementNode.element;
+        			replacementNode = replacementNode.rightChild;
+        		}
+        	}
+        	
+        	return replacement;
+        	
+        }
+        
+        //Finds the smallest element in a tree, used when finding a replacement
+        public Node findSmallest(Node parent)
+        {	if(parent.leftChild == null)
+        		return parent;
+        	else
+        	{	return findSmallest(parent.leftChild);
+        	}	
+        }
+        
+        
+        public void balanceAfterDelete(Node parent)
         {
+        	
         }
         
         //Returns String to update learning tool of what happened in tree
@@ -136,7 +192,7 @@ public class AvlTree implements DSLTtree {
         }
 
         //Boolean to tell if item is in the tree or not
-        private boolean find(int x, Node node)
+        private Node find(int x, Node node)
         {
             while( node != null )
                 if(x < node.element)
@@ -149,11 +205,11 @@ public class AvlTree implements DSLTtree {
                 }
                 else
                 {	//Match
-                    return true;    
+                    return node;    
                 }
             
             //Hit a null node
-            return false;
+            return null;
         }
 
 
