@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -53,6 +55,15 @@ public class Window extends JFrame {
 		sidePanel.add(backButton);
 		
 		treeDisplay.setPreferredSize(new Dimension(900,600));
+		List<Node> nodeList = new ArrayList<Node>();
+		Node node1 = new Node(2000);
+		Node node2 = new Node(1000);
+		Node node3 = new Node(3000);
+		node2.setColorRed();
+		nodeList.add(node1);
+		nodeList.add(node2);
+		nodeList.add(node3);
+		treeDisplay.updateList(nodeList);
 		
 		windowLayout.add(sidePanel, BorderLayout.WEST);
 		windowLayout.add(treeDisplay, BorderLayout.EAST);
