@@ -7,7 +7,7 @@ public interface DSLTtree {
 	/**
 	 * @return the integers stored in the tree in level order
 	 */
-	public node[] allNodes();
+	public Node[] allNodes();
 	
 	public String getMessage();
 }

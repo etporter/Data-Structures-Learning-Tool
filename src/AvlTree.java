@@ -1,6 +1,5 @@
 
 
-
 public class AvlTree implements DSLTtree {
 	
         private Node root;
@@ -78,38 +77,71 @@ public class AvlTree implements DSLTtree {
             return t == null ? null : t.element;
         }
 
-        /**
-         * Internal method to insert into a subtree.
-         * @param x the item to insert.
-         * @param t the node that roots the tree.
-         * @return the new root.
-         */
-        private Node insert( int x, Node t )
+        //Inserts x into tree
+        private Node insert(int x, Node parent)
         {
-            if( t == null )
-                t = new Node( x, null, null );
-            else if(x < t.element)
+        	//If this location is null, this is the a new node
+        	//Works for root, and when an empty tree is reached
+            if( parent == null )
+                parent = new Node(x);
+            
+            //If the item to be inserted is less than its parent, insert at left child.
+            //Also, if item is equal, insert down left subtree.
+            //Once inserted, checks the height of lowest level
+            //As recursive calls return, checks height of other levels
+            //If height at any level violates the rules, rotate accordingly
+            else if(x < parent.element || x == parent.element)
             {
-                t.leftChild = insert( x, t.leftChild );
-                if( height( t.leftChild ) - height( t.rightChild ) == 2 )
-                    if(x < t.leftChild.element)
-                        t = rotateWithLeftChild( t );
+            	//recursion to insert down left subtree, which can split to right of left
+                parent.leftChild = insert(x, parent.leftChild);
+                
+                //if the height of the left subtree is more than 1 different
+                if(height(parent.leftChild) - height(parent.rightChild) > 1)
+                {	
+                	//if item is rightmost from parent, double rotation
+                    if(x > parent.leftChild.element)
+                    {	parent = doubleRotationLeft(parent);
+                    }
+                
+                	//Else item is leftmost, single rotation
                     else
-                        t = doubleWithLeftChild( t );
+                    {	parent = singleRotationLeft(parent);
+                    }
+                }
+                        
             }
-            else if(x > t.element)
+            
+            //Same process as left side, but now on right side
+            else //if(x > parent.element)
             {
-                t.rightChild = insert( x, t.rightChild );
-                if( height( t.rightChild ) - height( t.leftChild ) == 2 )
-                    if(x > t.rightChild.element)
-                        t = rotateWithRightChild( t );
+            	//recursion to insert down right subtree
+                parent.rightChild = insert( x, parent.rightChild );
+                
+                //Checks height condition
+                if(height( parent.rightChild ) - height( parent.leftChild ) > 1)
+                {  
+                	//if item is rightmost, single rotation
+                	if(x > parent.rightChild.element)
+                	{   parent = singleRotateRight(parent);
+                	}
+                	
+                	//else item is leftmost, double rotation
                     else
-                        t = doubleWithRightChild( t );
+                    {   parent = doubleRotateRight(parent);
+                    }
+                }
+            }
+            
+            //Updates height of parent at each level, because recursive calls will cause this to be updated
+            if(height(parent.leftChild) > height(parent.rightChild))
+            {	parent.height = height(parent.leftChild) + 1;
             }
             else
-                ;  // Duplicate; do nothing
-            t.height = max( height( t.leftChild ), height( t.rightChild ) ) + 1;
-            return t;
+            {	parent.height = height(parent.rightChild) + 1; 
+            }
+            
+            //returns parent so recursion can occur
+            return parent;
         }
 
         /**
@@ -166,7 +198,7 @@ public class AvlTree implements DSLTtree {
          * For AVL trees, this is a single rotation for case 1.
          * Update heights, then return new root.
          */
-        private static Node rotateWithLeftChild( Node k2 )
+        private static Node singleRotationLeft( Node k2 )
         {
             Node k1 = k2.leftChild;
             k2.leftChild = k1.rightChild;
@@ -181,7 +213,7 @@ public class AvlTree implements DSLTtree {
          * For AVL trees, this is a single rotation for case 4.
          * Update heights, then return new root.
          */
-        private static Node rotateWithRightChild( Node k1 )
+        private static Node singleRotateRight( Node k1 )
         {
             Node k2 = k1.rightChild;
             k1.rightChild = k2.leftChild;
@@ -197,10 +229,10 @@ public class AvlTree implements DSLTtree {
          * For AVL trees, this is a double rotation for case 2.
          * Update heights, then return new root.
          */
-        private static Node doubleWithLeftChild( Node k3 )
+        private static Node doubleRotationLeft( Node k3 )
         {
-            k3.leftChild = rotateWithRightChild( k3.leftChild );
-            return rotateWithLeftChild( k3 );
+            k3.leftChild = singleRotateRight( k3.leftChild );
+            return singleRotationLeft( k3 );
         }
 
         /**
@@ -209,10 +241,10 @@ public class AvlTree implements DSLTtree {
          * For AVL trees, this is a double rotation for case 3.
          * Update heights, then return new root.
          */
-        private static Node doubleWithRightChild( Node k1 )
+        private static Node doubleRotateRight( Node k1 )
         {
-            k1.rightChild = rotateWithLeftChild( k1.rightChild );
-            return rotateWithRightChild( k1 );
+            k1.rightChild = singleRotationLeft( k1.rightChild );
+            return singleRotateRight( k1 );
         }
 
 }
