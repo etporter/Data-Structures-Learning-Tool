@@ -5,7 +5,7 @@ import java.util.List;
 public class MinHeap implements DSLTtree {
 	
     public Node root = new Node();							//Root node
-    public String message = "";								//Message from tree to 
+    public String message = "";								//Message from tree to window
     public List<Node> minHeap = new ArrayList<Node>(30);	//
     public int size;										//
 	public static Node empty; 								//
