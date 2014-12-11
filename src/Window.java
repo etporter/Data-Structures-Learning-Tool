@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -170,8 +171,8 @@ public class Window extends JFrame implements ActionListener{
 			Integer removeVal = Integer.parseInt(input);	
 			tree.delete(removeVal);
 		}
-		
-	
+		treeDisplay.updateList();
+		treeDisplay.repaint();
 	    
 	}
 }
