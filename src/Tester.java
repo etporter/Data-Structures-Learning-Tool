@@ -25,7 +25,7 @@ public class Tester {
 		    List<Node> thisList = thisTree.allNodes();
 		    for(int i = 0; i<thisList.size(); i++)
 		    {	if(thisList.get(i) != AvlTree.empty)
-		    		System.out.println("" + thisList.get(i).element + thisList.get(i).color);
+		    		System.out.println("" + thisList.get(i).element + " "+ thisList.get(i).color);
 		    	else
 		    		System.out.println("Null Node");
 		    }

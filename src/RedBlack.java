@@ -20,8 +20,47 @@ public class RedBlack implements DSLTtree {
 		
 	}
 	
-	public Node insert(int element, Node parent)
-	{	if(parent == null)
+	public void insert(int element, Node parent)
+	{  if (root == null) 
+		{	root = new Node(element);
+    	}
+	
+		Node n = root;
+		while (true) 
+		{	
+			
+			if (element == n.element)
+			{	return;
+			} 
+			
+			else if (element < n.element) 
+			{	if (n.leftChild == null) 
+				{	n.leftChild = new Node(element);
+                	adjustAfterInsertion(n.leftChild);
+                	break;
+            	}
+            	n = n.leftChild;
+			} 
+			
+			else 
+			{ 	// element > n.element
+				if (n.rightChild == null) 
+				{	n.rightChild = new Node(element);
+                	adjustAfterInsertion(n.rightChild);
+                	break;
+				}
+				n = n.rightChild;
+			}
+			
+    }
+		
+		
+		
+		
+		
+		
+		
+		/*if(parent == null)
 		{	parent = new Node(element, 1);
 		}
 		
@@ -36,7 +75,7 @@ public class RedBlack implements DSLTtree {
 
 		parent = balance(parent);
 		return parent;
-		
+		*/
 	}
 	
 	public void delete(int element)
