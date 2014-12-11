@@ -1,14 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*	MinHeap
+ * 	Implements DSLTtree
+ * 	Conditions: Tree must be complete:	Every level must be full except the last
+ * 										On last level, Nodes are leftmost
+ * 				All parents are less than their children
+ * 				Inserts done at bottom rightmost, percolated up
+ * 				Deletions done from top, with bottom item moved to root and percolated down
+ */
 public class MinHeap implements DSLTtree {
 	
     public Node root = new Node();							//Root node
     public String message = "";								//Message from tree to window
     public List<Node> minHeap = new ArrayList<Node>(30);	//List to hold order of nodes
-    public int size;										//
-	public static Node empty; 								//
+    public int size;										//the size of the heap
+	public static Node empty; 								//empty node to be placeholder
     
     //Constructor, empty tree, no root.
     public MinHeap()
@@ -24,10 +31,11 @@ public class MinHeap implements DSLTtree {
 		minHeap.add(insertThis);    
         percolateUp();
         message = element + "was inserted. \n Percolate Up.";
-
 	}
 	
-	
+	//Function to match empty nodes
+	//Only used for AVL and RB level order
+	//In this class to match DSLTtree interface
     public boolean isEmpty(Node thisNode)
     {	if(thisNode == empty)
     		return true;
@@ -35,24 +43,30 @@ public class MinHeap implements DSLTtree {
     		return false;
     }
     
-	//Deletes minimum item
+	//Deletes minimum item, which is the first index
 	public void delete(int label)
 	{ 	int minItem = minHeap.get(1).element;
 	
-		//Overwrite first index with last index, decrement size
+	
+		//Overwrite first index with last index, which will be the rightmost bottom element
+		//decrement size
 		minHeap.set(1, minHeap.get(size));
 		minHeap.set(size, null);
 		size--;
 		
 		//Percolate this item down the tree
 		percolateDown();
+		
+		//Set message for the display
 		message = minItem + "was removed. \n Percolate Down.";
 	}
 	
 	
-	
+	//Moves an inserted item up the binHeap until it is in the correct position
+	//That is, until it is less than both of its children
 	public void percolateUp()
 	{	
+		//set starting index to the last item in list
 		int index = size;
 		
 		//While this index is not the root, and its parent's value is greater than the item
@@ -63,9 +77,12 @@ public class MinHeap implements DSLTtree {
     	}	
 	}
 	
+	//Moves the top node down the tree until it is not greater than its children
 	public void percolateDown()
-	{	Node moveDown = minHeap.get(1);
+	{	//Find starting node, the first element
+		Node moveDown = minHeap.get(1);
 		int index = 1;
+		
 		//Loops until break statement hit
 		while (true) 
 		{	//Finds index of both children
@@ -116,12 +133,14 @@ public class MinHeap implements DSLTtree {
 	}
 	
 	
-	//Swaps two nodes 
+	
+	//Swaps two nodes in list
 	public void swap(int i1, int i2)
 	{  	Node temporary = minHeap.get(i1);
 		minHeap.set(i1, minHeap.get(i2));
 		minHeap.set(i2, temporary);	
 	}
+	
 	
 	//Returns index of this items parent
 	//This is why the index's start at 1, because then the truncated result of this division
@@ -131,6 +150,7 @@ public class MinHeap implements DSLTtree {
     	return retVal;
     }
 	
+    
     //Returns value of parent
     private int parentValue(int i)
     {	int parentIndex = parentIndex(i);
@@ -138,12 +158,12 @@ public class MinHeap implements DSLTtree {
     	return retVal;	
     }
     
+    
     //Returns true if this index is not the root
     protected boolean hasParent(int i) 
     {	boolean retVal = (i > 1);
     	return retVal;
     }
-    
     
 	//Uses Lists to get a level order of all nodes
 	public List<Node> allNodes()
@@ -155,5 +175,4 @@ public class MinHeap implements DSLTtree {
 	{	return message;
 	}
 	
-
 }

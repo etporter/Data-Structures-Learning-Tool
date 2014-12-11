@@ -1,8 +1,15 @@
-import java.lang.Math;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
+/*	Red Black Tree
+ * 	Implements DSLTtree
+ * 	Conditions: BST
+ * 				Root is Black
+ * 				Inserts are Red
+ * 				Path from root to any leaf has same number of black nodes
+ * 				A red node can only have two black children
+ */
 public class RedBlack implements DSLTtree {
 	
 	

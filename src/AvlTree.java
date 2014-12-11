@@ -3,7 +3,6 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /*	AVLTree
  * 	Implements DSLTtree
  * 	Conditions: BST
@@ -12,10 +11,10 @@ import java.util.List;
  */
 public class AvlTree implements DSLTtree {
 	
-        public Node root;
-        public String message = "";
-        public List<Node> levelOrder =  new ArrayList<Node>(30);
-        public static Node empty;
+        public Node root;											//Root Node
+        public String message = "";									//Message to send to display
+        public List<Node> levelOrder =  new ArrayList<Node>(30);	//Tree Nodes in Level Order
+        public static Node empty;									//Empty Node marker for level order
         
         
         //Constructor, empty tree, no root.
@@ -28,6 +27,8 @@ public class AvlTree implements DSLTtree {
         {	root = new Node(element);
         }
         
+        //Returns true if this node is the empty node
+        //Used to keep track of positions in levelOrder method
         public boolean isEmpty(Node thisNode)
         {	if(thisNode == empty)
         		return true;
@@ -52,7 +53,8 @@ public class AvlTree implements DSLTtree {
         //Removes first found instance of x from tree
         //Does nothing if x is not in tree
         private Node delete(int element, Node parent)
-        {	
+        {		
+        		//If we have hit a null node, return
         		if(parent == null)
         		{	return parent;
         		}
@@ -83,7 +85,7 @@ public class AvlTree implements DSLTtree {
         				}
         			}
         			
-        			//else the node has two children
+        			//else the node has two children, continue down right subtree
         			else
         			{	Node temp = findSmallest(parent.rightChild);
         				parent.element = temp.element;
@@ -96,12 +98,13 @@ public class AvlTree implements DSLTtree {
         		{	return parent;
         		}
         		
+        		//Update heights
         		parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;
         		
         		
+        		//If left subtree is greater than right by 2
         		   if(parent.getLCH() - parent.getRCH() > 1)
-                   {	
-                   	//if item is rightmost from parent, double rotation
+                   {	//if item is rightmost from parent, double rotation
                        if(element > parent.leftChild.element)
                        {	message += ("Double rotation about" + parent.element);
                        		parent = doubleRotateLeft(parent);
@@ -114,6 +117,7 @@ public class AvlTree implements DSLTtree {
                        }
                    }
         		   
+        		   //if right subtree is greater than left by 2
         		   else if(parent.getRCH() - parent.getLCH() > 1)
                    {  
                    	//if item is rightmost, single rotation
@@ -128,15 +132,12 @@ public class AvlTree implements DSLTtree {
                        		parent = doubleRotateRight(parent);
                        }
                    }
-        		   
-        		   
-        
+
         	    return parent;
         }
         	
         
-        
-
+   
         
         //Finds the smallest element in a tree, used when finding a replacement
         public Node findSmallest(Node parent)
@@ -174,6 +175,7 @@ public class AvlTree implements DSLTtree {
 	            	if(currentNode == empty)
 	            		{	levelOrder.add(empty);
 	            		}
+	            	//Adds children to next level, including placeholder empty
 	            	else if(currentNode != null && currentNode != empty) 	
 	            	{	levelOrder.add(currentNode);
 	            	
@@ -186,17 +188,12 @@ public class AvlTree implements DSLTtree {
 		                {	nextLevel.add(empty);}
 		                else
 		                {	nextLevel.add(currentNode.rightChild);}
-		               
 	            	}
-	            
 	            }
-        	
-	            
 	            //Sets this level to be next row down, creates a new next level
 	            thisLevel = nextLevel;
 	            nextLevel = new ArrayList<Node>();
         	}
-        	
         	return levelOrder;
         }
         
@@ -206,7 +203,7 @@ public class AvlTree implements DSLTtree {
         {	root = insert(element, root);
         	message = element + "was inserted.";
         }
-        
+
         //Inserts x into tree, pass in root from outside. 
         public Node insert(int x, Node parent)
         {
@@ -279,24 +276,21 @@ public class AvlTree implements DSLTtree {
             return parent;
         }
 
-        //Boolean to tell if item is in the tree or not
+        
+        //Method to determine if a node is in the tree or not
         private boolean find(int x, Node node)
-        {
-            while( node != null )
+        {	//Loops through correct side until it hits a null node 
+        	//Or finds the element
+            while(node != null)
                 if(x < node.element)
-                {	//Check left side if less
-                    node = node.leftChild;
+                {	node = node.leftChild;
                 }
                 else if(x > node.element)
-                {	//Check right side if greater
-                	node = node.rightChild;
+                {	node = node.rightChild;
                 }
                 else
-                {	//Match
-                    return true;    
+                {	return true;    
                 }
-            
-            //Hit a null node
             return false;
         }
 
