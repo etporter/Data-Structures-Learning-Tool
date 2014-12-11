@@ -137,9 +137,11 @@ public class RedBlack implements DSLTtree {
     private Node deleteMin(Node parent) 
     {	if (parent.leftChild == null)
             return null;
-        if (!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
+    	if(parent.leftChild.leftChild != null)
+    	{if (!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
         {	parent = moveLeft(parent);
         }
+    	}
         parent.leftChild = deleteMin(parent.leftChild);
         return balance(parent);
     }

@@ -22,6 +22,7 @@ public class Tester {
 		    thisTree.insert(2);
 		    thisTree.insert(11);
 		    thisTree.insert(14);
+		    thisTree.delete(8);
 		    List<Node> thisList = thisTree.allNodes();
 		    for(int i = 0; i<thisList.size(); i++)
 		    {	if(thisList.get(i) != AvlTree.empty)
