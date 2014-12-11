@@ -40,7 +40,9 @@ public class DSLTcanvas extends JPanel {
 	}
 		  
 	public void paintComponent(Graphics g)
-	{		   
+	{
+		nodes = tree.allNodes();
+		System.out.println(nodes);
 		for(int i = 0; i<nodes.size(); i++)
 		{
 			if(i == 0)
