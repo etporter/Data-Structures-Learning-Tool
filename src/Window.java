@@ -22,12 +22,10 @@ public class Window extends JFrame {
 	DSLTcanvas treeDisplay = new DSLTcanvas();
 	DSLTtree tree;
 	
-	public Window(DSLTtree t)
+	public Window()
 	{
 		super("Tree Visualisation - Term Project");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		tree = t;
 		
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
@@ -68,26 +66,26 @@ public class Window extends JFrame {
 		
 		treeDisplay.setPreferredSize(new Dimension(950,600));
 		List<Node> nodeList = new ArrayList<Node>();
-		Node node1 = new Node(0);
-		Node node2 = new Node(1);
-		Node node3 = new Node(2);
-		Node node4 = new Node(3);
-		Node node5 = new Node(4);
-		Node node6 = new Node(5);
-		Node node7 = new Node(6);
-		Node node8 = new Node(7);
-		Node node9 = new Node(8);
-		Node node10 = new Node(9);
-		Node node11 = new Node(10);
-		Node node12 = new Node(11);
-		Node node13 = new Node(12);
-		Node node14 = new Node(13);
-		Node node15 = new Node(14);
+		Node node1 = new Node(50);
+		Node node2 = new Node(30);
+		Node node3 = new Node(70);
+		Node node4 = new Node(26);
+		Node node5 = new Node(37);
+		Node node6 = new Node(55);
+		Node node7 = new Node(76);
+		Node node8 = new Node(17);
+		Node node9 = new Node(28);
+		Node node10 = new Node(35);
+		Node node11 = new Node(46);
+		Node node12 = new Node(53);
+		Node node13 = new Node(60);
+		Node node14 = new Node(72);
+		Node node15 = new Node(80);
 		Node node16 = new Node(15);
-		Node node17 = new Node(16);
-		Node node18 = new Node(17);
-		Node node19 = new Node(18);
-		Node node20 = new Node(19);
+		Node node17 = new Node(20);
+		Node node18 = new Node(27);
+		Node node19 = new Node(29);
+		Node node20 = new Node(31);
 		Node node21 = new Node(20);
 		Node node22 = new Node(21);
 		Node node23 = new Node(22);
@@ -99,7 +97,6 @@ public class Window extends JFrame {
 		Node node29 = new Node(28);
 		Node node30 = new Node(29);
 		Node node31 = new Node(30);
-		node2.setColorRed();
 		nodeList.add(node1);
 		nodeList.add(node2);
 		nodeList.add(node3);
@@ -120,7 +117,7 @@ public class Window extends JFrame {
 		nodeList.add(node18);
 		nodeList.add(node19);
 		nodeList.add(node20);
-		nodeList.add(node21);
+		/*nodeList.add(node21);
 		nodeList.add(node22);
 		nodeList.add(node23);
 		nodeList.add(node24);
@@ -130,12 +127,16 @@ public class Window extends JFrame {
 		nodeList.add(node28);
 		nodeList.add(node29);
 		nodeList.add(node30);
-		nodeList.add(node31);
+		nodeList.add(node31);*/
 		treeDisplay.updateList(nodeList);
 		
 		windowLayout.add(sidePanel, BorderLayout.WEST);
 		windowLayout.add(treeDisplay, BorderLayout.EAST);
 		
 		getContentPane().add(windowLayout, BorderLayout.WEST);
+	}
+	public void addTree(DSLTtree t)
+	{
+		tree = t;
 	}
 }
