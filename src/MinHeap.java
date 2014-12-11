@@ -60,7 +60,7 @@ public class MinHeap implements DSLTtree {
 	public void percolateDown()
 	{	Node moveDown = minHeap.get(1);
 		int index = 1;
-	
+		//Loops until break statement hit
 		while (true) 
 		{	int lcIndex = index*2; 
 			int rcIndex = lcIndex + 1;
