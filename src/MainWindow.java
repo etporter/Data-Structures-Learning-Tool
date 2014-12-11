@@ -35,14 +35,14 @@ public class MainWindow extends JFrame implements ActionListener{
 	
 	private void startTreeWindow(int treeType, String title)
 	{
-		// Creates new Window, and sets to visible
+		//Creates new Window, and sets to visible
 		Window thisWindow = new Window(treeType);
 		thisWindow.setSize(1250,750);
 		thisWindow.setVisible(true);
 		thisWindow.setTitle(title); 
 	}
 	
-	
+	//When go button is pressed
 	public void actionPerformed(ActionEvent e) 
 	{ 	
 		if(typeSelector.getSelectedIndex() == 0)
