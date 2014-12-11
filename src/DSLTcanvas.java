@@ -18,11 +18,6 @@ public class DSLTcanvas extends JPanel {
 		this.setBorder(BorderFactory.createBevelBorder(1));
 		
 	}
-	
-	/*public void updateList(List<Node> newNodes)
-	{
-		nodes = newNodes;
-	}*/
 		  
 	private void drawNode(Graphics g, Node node, int x, int y)
 	{
