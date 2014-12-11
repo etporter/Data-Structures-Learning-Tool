@@ -11,7 +11,7 @@ public class Tester {
 		    thisWindow.setVisible(true);*/
 		    
 		    
-		   RedBlack thisTree = new RedBlack();
+		    RedBlack thisTree = new RedBlack();
 		    thisTree.insert(8);
 		    thisTree.insert(5);
 		    thisTree.insert(21);

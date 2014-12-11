@@ -39,7 +39,7 @@ public class DSLTcanvas extends JPanel {
 		for(int i = 0; i<nodes.size(); i++)
 		{
 			if(i == 0)
-			{
+			{	
 				drawNode(g,nodes.get(i), 450, 30);
 			}
 			else if (i == 1)

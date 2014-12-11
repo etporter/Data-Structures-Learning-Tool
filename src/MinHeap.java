@@ -1,19 +1,17 @@
-import java.lang.Math;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MinHeap implements DSLTtree {
 	
-    public Node root = new Node();
-    public String message = "";
-    public List<Node> minHeap = new ArrayList<Node>(30);
-    public int size;
-	
+    public Node root = new Node();							//Root node
+    public String message = "";								//Message from tree to 
+    public List<Node> minHeap = new ArrayList<Node>(30);	//
+    public int size;										//
+	public static Node empty; 								//
     
     //Constructor, empty tree, no root.
-    public MinHeap( )
+    public MinHeap()
     {	size = 0;
     	minHeap.add(root);
     }
@@ -23,7 +21,6 @@ public class MinHeap implements DSLTtree {
 	public void insert(int element)
 	{	Node insertThis = new Node(element);
 		size++;
-		//int index = size;
 		minHeap.add(insertThis);    
         percolateUp();
         message = element + "was inserted. \n Percolate Up.";
