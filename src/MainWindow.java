@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 public class MainWindow extends JFrame implements ActionListener{
 
+	private static final long serialVersionUID = 1L;
 	JComboBox<String> typeSelector = new JComboBox<String>();
 	
 	public MainWindow()
