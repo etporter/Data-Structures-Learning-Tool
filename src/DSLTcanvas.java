@@ -14,21 +14,23 @@ public class DSLTcanvas extends JPanel {
 	public DSLTcanvas(DSLTtree t)
 	{
 		tree = t;
+		nodes = tree.allNodes();
 		this.setBorder(BorderFactory.createBevelBorder(1));
+		
 	}
 	
-	public void updateList(List<Node> newNodes)
+	/*public void updateList(List<Node> newNodes)
 	{
 		nodes = newNodes;
-	}
+	}*/
 		  
 	private void drawNode(Graphics g, Node node, int x, int y)
 	{
-		if (node.color == 0) g.setColor(Color.black);
-		else if(node.color == 1) g.setColor(Color.red);
-		
 		if(!(tree.isEmpty(node)))
 		{
+			if (node.color == 0) g.setColor(Color.black);
+			else if(node.color == 1) g.setColor(Color.red);
+
 			g.drawOval(x, y, 50, 50);
 			g.drawString(Integer.toString(node.element), x+10, y+30);
 		}
