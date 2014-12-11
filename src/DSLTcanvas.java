@@ -23,7 +23,8 @@ public class DSLTcanvas extends JPanel {
 	{
 		nodes = tree.allNodes();
 	}
-		  
+	
+	
 	private void drawNode(Graphics g, Node node, int x, int y)
 	{
 		if(!(tree.isEmpty(node)))

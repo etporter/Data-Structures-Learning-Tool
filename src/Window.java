@@ -57,6 +57,7 @@ public class Window extends JFrame implements ActionListener{
 		dropDown.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inputBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		goButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		goButton.addActionListener(this);
 		infoBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		header1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		updateBox.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -152,6 +153,7 @@ public class Window extends JFrame implements ActionListener{
 		
 		getContentPane().add(windowLayout, BorderLayout.WEST);
 	}
+	
 	public void addTree(DSLTtree t)
 	{
 		tree = t;
@@ -166,13 +168,15 @@ public class Window extends JFrame implements ActionListener{
 			tree.insert(insertVal);
 		}
 		
+		
 		if(dropDown.getSelectedIndex() == 1)
 		{	String input = inputBox.getText();
 			Integer removeVal = Integer.parseInt(input);	
 			tree.delete(removeVal);
 		}
+		
 		treeDisplay.updateList();
-		treeDisplay.repaint();
+		
 	    
 	}
 }
