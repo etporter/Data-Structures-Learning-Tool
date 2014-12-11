@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Tester {
+public class Data_Structure_Visualizations {
 
 	public static void main (String[] args)
 	{ 
