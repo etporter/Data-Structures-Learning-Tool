@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -11,6 +12,7 @@ public class DSLTcanvas extends JPanel {
 	
 	public DSLTcanvas()
 	{
+		this.setBorder(BorderFactory.createBevelBorder(1));
 	}
 	
 	public void updateList(List<Node> newNodes)

@@ -54,7 +54,7 @@ public class Window extends JFrame {
 		sidePanel.add(updateBox);
 		sidePanel.add(backButton);
 		
-		treeDisplay.setPreferredSize(new Dimension(930,600));
+		treeDisplay.setPreferredSize(new Dimension(950,600));
 		List<Node> nodeList = new ArrayList<Node>();
 		Node node1 = new Node(0);
 		Node node2 = new Node(1);
