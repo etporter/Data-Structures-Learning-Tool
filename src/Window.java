@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -18,18 +20,19 @@ public class Window extends JFrame {
 	JTextArea updateBox = new JTextArea(25,20);
 	JLabel header1 = new JLabel("--------------");
 	DSLTcanvas treeDisplay = new DSLTcanvas();
+	DSLTtree tree;
 	
-	public Window()
+	public Window(DSLTtree t)
 	{
 		super("Tree Visualisation - Term Project");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		tree = t;
+		
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
-		
-		
-		
+
 		String[] commands = {"Insert","Delete"};
 		
 		for(int i=0; i<commands.length; i++)
@@ -53,6 +56,15 @@ public class Window extends JFrame {
 		sidePanel.add(header1);
 		sidePanel.add(updateBox);
 		sidePanel.add(backButton);
+		
+		goButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				int newLabel = Integer.parseInt(inputBox.getText());
+				tree.insert(newLabel);
+			}
+		});
 		
 		treeDisplay.setPreferredSize(new Dimension(950,600));
 		List<Node> nodeList = new ArrayList<Node>();
