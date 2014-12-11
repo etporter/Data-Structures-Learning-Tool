@@ -9,9 +9,11 @@ import java.util.List;
 public class DSLTcanvas extends JPanel {
 
 	List<Node> nodes;
+	DSLTtree tree;
 	
-	public DSLTcanvas()
+	public DSLTcanvas(DSLTtree t)
 	{
+		tree = t;
 		this.setBorder(BorderFactory.createBevelBorder(1));
 	}
 	
@@ -25,7 +27,7 @@ public class DSLTcanvas extends JPanel {
 		if (node.color == 0) g.setColor(Color.black);
 		else if(node.color == 1) g.setColor(Color.red);
 		
-		if(node.element != null)
+		if(node != tree.empty)
 		{
 			g.drawOval(x, y, 50, 50);
 			g.drawString(Integer.toString(node.element), x+10, y+30);
