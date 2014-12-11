@@ -22,9 +22,8 @@ public class Window extends JFrame {
 	DSLTcanvas treeDisplay = new DSLTcanvas();
 	DSLTtree tree;
 	
-	public Window(String treeType)
+	public Window(int treeType)
 	{
-		super(treeType);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		JPanel windowLayout = new JPanel();
