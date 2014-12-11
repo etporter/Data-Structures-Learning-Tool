@@ -137,15 +137,18 @@ public class RedBlack implements DSLTtree {
     private Node deleteMin(Node parent) 
     {	if (parent.leftChild == null)
             return null;
-    	if(parent.leftChild.leftChild != null)
-    	{if (!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
-        {	parent = moveLeft(parent);
-        }
+    	
+    	if(parent.rightChild != null && parent.rightChild.leftChild != null)
+    	{	if (parent.rightChild.leftChild.isRed())
+        	{	parent = moveLeft(parent);
+        	}
     	}
         parent.leftChild = deleteMin(parent.leftChild);
-        return balance(parent);
+        return parent;
+       
     }
 	
+    
 	public List<Node> allNodes()
 	{	levelOrder.clear();
 		List<Node> thisLevel = new ArrayList<Node>();
@@ -248,25 +251,38 @@ public class RedBlack implements DSLTtree {
 		
 	}
 	
+	
+	//Method to rotate to the right
+	//POST: Parent's left child is new 'root'
+	//Parent is the right child, parents right child is the roots left child.
+	
 	public Node rightRotate(Node parent)
 	{	Node newRoot = parent.leftChild;
 		parent.leftChild = newRoot.rightChild;
 		newRoot.rightChild = parent;
+		
 		newRoot.color = newRoot.rightChild.color;
 		newRoot.rightChild.setColorRed();
 		newRoot.subTreeCount = parent.subTreeCount;
-		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) + 1;
+		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + 
+				sizeSubtreeCount(parent.rightChild) + 1;
 		return newRoot;	
 	}
 	
+	
+	//Method takes the parent node and switches its color
+	//and the color of its children
 	public Node flipColors(Node parent)
 	{	parent.flipColor();
 		parent.leftChild.flipColor();
 		parent.rightChild.flipColor();
 		return parent;
-		
 	}
 	
+	
+	
+	
+	//Method to return of the number of black nodes from the parent to a leaf
     public int sizeSubtreeCount(Node parent) 
     {	if(parent == null)
     	{	return 0;
@@ -276,24 +292,24 @@ public class RedBlack implements DSLTtree {
     	} 
     }
 
+    
+    
+    //Method to determine if a node is in the tree or not
     private boolean find(int x, Node node)
-    {
-        while( node != null )
+    {	//Loops through correct side until it hits a null node 
+    	//Or finds the element
+        while(node != null)
             if(x < node.element)
-            {	//Check left side if less
-                node = node.leftChild;
+            {	node = node.leftChild;
             }
             else if(x > node.element)
-            {	//Check right side if greater
-            	node = node.rightChild;
+            {	node = node.rightChild;
             }
             else
-            {	//Match
-                return true;    
+            {	return true;    
             }
-        
-        //Hit a null node
         return false;
     }
+    
 }
 
