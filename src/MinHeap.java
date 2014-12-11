@@ -62,14 +62,18 @@ public class MinHeap implements DSLTtree {
 		int index = 1;
 		//Loops until break statement hit
 		while (true) 
-		{	int lcIndex = index*2; 
+		{	//Finds index of both children
+			int lcIndex = index*2; 
 			int rcIndex = lcIndex + 1;
 			int child; 
 			
+			//If the left child index is larger than the size of the array
+			//We have exceeded the bounds
 			if (lcIndex > size) 
 		    {	break;
 		    }
 			
+			//If the left child is the size, set the child to this index
 			if (lcIndex == size) 
 			{	child = lcIndex;
 			} 
