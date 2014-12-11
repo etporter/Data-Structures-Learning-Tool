@@ -24,10 +24,6 @@ public class Window extends JFrame {
 	
 	public Window(int treeType)
 	{
-<<<<<<< HEAD
-		//super(treeType);
-=======
->>>>>>> FETCH_HEAD
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		if(treeType == 0)
