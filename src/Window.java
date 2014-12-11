@@ -176,7 +176,7 @@ public class Window extends JFrame implements ActionListener{
 		}
 		
 		treeDisplay.updateList();
-		
+		treeDisplay.repaint();
 	    
 	}
 }
