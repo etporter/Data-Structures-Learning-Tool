@@ -19,13 +19,28 @@ public class Window extends JFrame {
 	JTextArea infoBox = new JTextArea(10,20);
 	JTextArea updateBox = new JTextArea(25,20);
 	JLabel header1 = new JLabel("Rotation Descriptions");
-	DSLTcanvas treeDisplay = new DSLTcanvas();
+	DSLTcanvas treeDisplay;// = new DSLTcanvas();
 	DSLTtree tree;
 	
-	public Window(String treeType)
+	public Window(int treeType)
 	{
-		super(treeType);
+		//super(treeType);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		if(treeType == 0)
+		{
+			tree = new AvlTree();
+		}
+		else if(treeType == 1)
+		{
+			tree = new RedBlack();
+		}
+		else if(treeType == 2)
+		{
+			tree = new MinHeap();
+		}
+		
+		treeDisplay = new DSLTcanvas(tree);
 		
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
@@ -65,7 +80,8 @@ public class Window extends JFrame {
 		});
 		
 		treeDisplay.setPreferredSize(new Dimension(950,600));
-		List<Node> nodeList = new ArrayList<Node>();
+		
+		/*List<Node> nodeList = new ArrayList<Node>();
 		Node node1 = new Node(50);
 		Node node2 = new Node(30);
 		Node node3 = new Node(70);
@@ -127,8 +143,8 @@ public class Window extends JFrame {
 		nodeList.add(node28);
 		nodeList.add(node29);
 		nodeList.add(node30);
-		nodeList.add(node31);*/
-		treeDisplay.updateList(nodeList);
+		nodeList.add(node31);
+		treeDisplay.updateList(nodeList);*/
 		
 		windowLayout.add(sidePanel, BorderLayout.WEST);
 		windowLayout.add(treeDisplay, BorderLayout.EAST);
