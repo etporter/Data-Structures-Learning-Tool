@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	JComboBox<String> dropDown = new JComboBox<String>();
@@ -154,5 +154,24 @@ public class Window extends JFrame {
 	public void addTree(DSLTtree t)
 	{
 		tree = t;
+	}
+	
+	
+	public void actionPerformed(ActionEvent e) 
+	{ 	
+		if(dropDown.getSelectedIndex() == 0)
+		{	String input = inputBox.getText();
+			Integer insertVal = Integer.parseInt(input);	
+			tree.insert(insertVal);
+		}
+		
+		if(dropDown.getSelectedIndex() == 1)
+		{	String input = inputBox.getText();
+			Integer removeVal = Integer.parseInt(input);	
+			tree.delete(removeVal);
+		}
+		
+	
+	    
 	}
 }
