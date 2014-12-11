@@ -1,5 +1,5 @@
 import java.util.List;
-//AUTHORS: Seraphina Orsini, Ethan Porter, Anthony Picard, Ruth Leopold
+//AUTHORS: Seraphina Orsini, Ethan Porter
 public class Data_Structure_Visualizations {
 
 	public static void main (String[] args)
