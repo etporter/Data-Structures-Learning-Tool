@@ -14,7 +14,7 @@ public class AvlTree implements DSLTtree {
 	
         public Node root;
         public String message = "";
-        public List<Node> levelOrder =  new ArrayList<Node>(20);
+        public List<Node> levelOrder =  new ArrayList<Node>(30);
         public static Node empty;
         
         

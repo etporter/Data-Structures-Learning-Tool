@@ -8,7 +8,8 @@ public class RedBlack implements DSLTtree {
 	
     public Node root;
     public String message = "";
-    public List<Node> levelOrder;
+    public List<Node> levelOrder = new ArrayList<Node>(30);
+    public static Node empty;
     
     public RedBlack()
     {	root = null;
@@ -136,7 +137,8 @@ public class RedBlack implements DSLTtree {
     }
 	
 	public List<Node> allNodes()
-	{	List<Node> thisLevel = new ArrayList<Node>();
+	{	levelOrder.clear();
+		List<Node> thisLevel = new ArrayList<Node>();
 		List<Node> nextLevel = new ArrayList<Node>();
 		
 		//Add root
@@ -150,18 +152,35 @@ public class RedBlack implements DSLTtree {
 	        while (iter.hasNext()) 
 	        {	//Add the children of the next node
 	        	Node currentNode = iter.next();
-	            nextLevel.add(currentNode.leftChild);
-	            nextLevel.add(currentNode.rightChild);
-	            levelOrder.add(currentNode);
+	        	if(currentNode == empty)
+	        		{	levelOrder.add(empty);
+	        		}
+	        	else if(currentNode != null && currentNode != empty) 	
+	        	{	levelOrder.add(currentNode);
+	        	
+	                if(currentNode.leftChild == null)
+	                {	nextLevel.add(empty);}
+	                else
+	                {	nextLevel.add(currentNode.leftChild);}
+	                
+	                if	(currentNode.rightChild == null)
+	                {	nextLevel.add(empty);}
+	                else
+	                {	nextLevel.add(currentNode.rightChild);}
+	               
+	        	}
+	        
 	        }
+		
 	        
 	        //Sets this level to be next row down, creates a new next level
 	        thisLevel = nextLevel;
 	        nextLevel = new ArrayList<Node>();
-	
 		}
+		
 		return levelOrder;
 	}
+	
 	
 	
 	public String getMessage()
@@ -169,21 +188,22 @@ public class RedBlack implements DSLTtree {
 	}
 
 	private Node balance(Node parent)
-	{	if(parent.rightChild.isRed() && ! parent.leftChild.isRed())
+	{ if(parent.rightChild != null && parent.leftChild != null)
+		{if(parent.rightChild.isRed() && ! parent.leftChild.isRed())
 		{	parent = leftRotate(parent);
 		
 		}
-		
-		if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
+		if(parent.leftChild.leftChild != null)
+		{if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
 		{	parent = rightRotate(parent);
 			
 		}
-		
+		}
 		if(parent.leftChild.isRed() && parent.rightChild.isRed())
 		{	parent = flipColors(parent);
 			
 		}
-		
+		}
 		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) +1;
 		return parent;	
 	}

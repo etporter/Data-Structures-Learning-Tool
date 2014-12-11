@@ -7,10 +7,11 @@ public class Tester {
 		    //Creates new Window, and sets to visible
 		    Window thisWindow = new Window();
 		    thisWindow.setSize(1250,750);
+		 
 		    thisWindow.setVisible(true);
 		    
 		    
-		    AvlTree thisTree = new AvlTree();
+		    RedBlack thisTree = new RedBlack();
 		    thisTree.insert(8);
 		    thisTree.insert(5);
 		    thisTree.insert(21);
@@ -24,38 +25,14 @@ public class Tester {
 		    List<Node> thisList = thisTree.allNodes();
 		    for(int i = 0; i<thisList.size(); i++)
 		    {	if(thisList.get(i) != AvlTree.empty)
-		    		System.out.println(thisList.get(i).element);
+		    		System.out.println("" + thisList.get(i).element + thisList.get(i).color);
 		    	else
 		    		System.out.println("Null Node");
 		    }
-		    
-		    System.out.println("");
-		    thisTree.delete(14);
-		    thisTree.delete(7);
-		    thisTree.delete(8);
-		    thisTree.delete(1);
-		    thisList = thisTree.allNodes();
-		    for(int i = 0; i<thisList.size(); i++)
-		    {	if(thisList.get(i) != AvlTree.empty)
-		    		System.out.println(thisList.get(i).element);
-		    	else
-		    		System.out.println("Null Node");
-		    }
-		    
-		    MinHeap thisHeap = new MinHeap();
-		    thisHeap.insert(40);
-		    thisHeap.insert(41);
-		    thisHeap.insert(52);
-		    thisHeap.insert(38);
-		    thisHeap.insert(56);
-		    thisHeap.insert(42);
-		    thisHeap.delete(-1);
-		    List<Node> thisHeapList = thisHeap.allNodes();
-		    for(int i = 0; i<= thisHeap.size; i++)
-		    {System.out.println(thisHeapList.get(i).element);
-		    
-		    }
+		
 
+		    
+		    
 	}
 		
 
