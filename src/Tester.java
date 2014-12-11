@@ -4,14 +4,14 @@ public class Tester {
 
 		  public static void main (String[] args) {
 			  
-		    //Creates new Window, and sets to visible
+		   /* //Creates new Window, and sets to visible
 		    Window thisWindow = new Window();
 		    thisWindow.setSize(1250,750);
 		 
-		    thisWindow.setVisible(true);
+		    thisWindow.setVisible(true);*/
 		    
 		    
-		    RedBlack thisTree = new RedBlack();
+		   RedBlack thisTree = new RedBlack();
 		    thisTree.insert(8);
 		    thisTree.insert(5);
 		    thisTree.insert(21);

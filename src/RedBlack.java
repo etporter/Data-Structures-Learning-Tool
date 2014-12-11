@@ -15,43 +15,15 @@ public class RedBlack implements DSLTtree {
     {	root = null;
     }
     
-
-	
 	public void insert(int element)
-	{   Node current, parent, grand, great = root;
-		Node temp = new Node(element);
-	   // nullNode.element = element;
-	    
-	    while(element != current.element) 
-	    {	great = grand; grand = parent; parent = current;
-	        if(element < current.element)
-	        	current = current.leftChild;
-	        else
-	        	current = current.rightChild;
-	        	//current = compare( element, current ) < 0 ?
-	            //current.left : current.right;
-	        
-	        // Check if two red children; fix if so
-	        if( current.leftChild.isRed() && current.rightChild.isRed() )
-	            checkPos(element);
-	    }
-	    
-	    // Insertion fails if already present
-	    if( current != nullNode )
-	        throw new DuplicateItemException( element.toString( ) );
-	    current = new RedBlackNode( element, nullNode, nullNode );
-	    
-	    // Attach to parent
-	    if( compare( element, parent ) < 0 )
-	        parent.left = current;
-	    else
-	        parent.right = current;
-	    
-	    checkPos( element );
-	    
-    
+	{	root = insert(element, root);
 		
-		/*if(parent == null)
+	}
+	
+	public Node insert(int element, Node parent)
+	{	
+		
+		if(parent == null)
 		{	parent = new Node(element, 1);
 		}
 		
@@ -66,61 +38,11 @@ public class RedBlack implements DSLTtree {
 
 		parent = balance(parent);
 		return parent;
-		*/
-	}
-	
-	
-	private void insertAdjustment(Node thisNode)
-	{	 // Step 1: color the node red
-        thisNode.setColorRed();
-
-        // Step 2: Correct double red problems, if they exist
-        if(thisNode != null && thisNode != root && parent(thisNode).isRed())
-        {	// Step 2a (simplest): Recolor, and move up to see if more work
-            // needed
-            if (isRed(siblingOf(parentOf(n)))) {
-                setColor(parentOf(n), Color.black);
-                setColor(siblingOf(parentOf(n)), Color.black);
-                setColor(grandparentOf(n), Color.red);
-                adjustAfterInsertion(grandparentOf(n));
-            }
-
-            // Step 2b: Restructure for a parent who is the left child of the
-            // grandparent. This will require a single right rotation if n is
-            // also
-            // a left child, or a left-right rotation otherwise.
-            else if (parentOf(n) == leftOf(grandparentOf(n))) {
-                if (n == rightOf(parentOf(n))) {
-                    rotateLeft(n = parentOf(n));
-                }
-                setColor(parentOf(n), Color.black);
-                setColor(grandparentOf(n), Color.red);
-                rotateRight(grandparentOf(n));
-            }
-
-            // Step 2c: Restructure for a parent who is the right child of the
-            // grandparent. This will require a single left rotation if n is
-            // also
-            // a right child, or a right-left rotation otherwise.
-            else if (parentOf(n) == rightOf(grandparentOf(n))) {
-                if (n == leftOf(parentOf(n))) {
-                    rotateRight(n = parentOf(n));
-                }
-                setColor(parentOf(n), Color.black);
-                setColor(grandparentOf(n), Color.red);
-                rotateLeft(grandparentOf(n));
-            }
-        }
-
-        // Step 3: Color the root black
-        root.setColorBlack();
-      
-        
-        
-        
-        
 		
 	}
+	
+	
+	
 	
 	public void delete(int element)
 	{   message = "";
@@ -141,6 +63,8 @@ public class RedBlack implements DSLTtree {
     	{   message = element + "was not in the tree.";
     	}		
 	}
+
+	
 	
 	private Node delete(int element, Node parent)
 	{	
@@ -180,6 +104,7 @@ public class RedBlack implements DSLTtree {
 		parent = balance(parent);
 		return parent;
 	}
+	
 	
 	private Node moveLeft(Node parent)
 	{	parent = flipColors(parent);
@@ -270,23 +195,39 @@ public class RedBlack implements DSLTtree {
 	{	return message;
 	}
 
+	
 	private Node balance(Node parent)
-	{ if(parent.rightChild != null && parent.leftChild != null)
-		{if(parent.rightChild.isRed() && ! parent.leftChild.isRed())
-		{	parent = leftRotate(parent);
+	{	if(parent.rightChild != null && parent.leftChild != null)
+		{	if(parent.rightChild.isRed() && !parent.leftChild.isRed())
+			{	parent = leftRotate(parent);
+			}
+			else if(parent.leftChild.isRed() && parent.rightChild.isRed())
+			{	parent = flipColors(parent);
+			
+			}
+		}
 		
+		if(parent.leftChild != null)
+		{	if(parent.leftChild.leftChild != null)
+			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
+				{	parent = rightRotate(parent);
+				
+				}
+			}
 		}
-		if(parent.leftChild.leftChild != null)
-		{if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
-		{	parent = rightRotate(parent);
+		
+		
+			
+		
+		else if(parent.rightChild != null)
+		{	if(parent.isRed() && parent.rightChild.isRed())
+			{	parent = leftRotate(parent);
+			
+			}
 			
 		}
-		}
-		if(parent.leftChild.isRed() && parent.rightChild.isRed())
-		{	parent = flipColors(parent);
-			
-		}
-		}
+		
+		
 		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) +1;
 		return parent;	
 	}
@@ -296,6 +237,7 @@ public class RedBlack implements DSLTtree {
 	{	Node newRoot = parent.rightChild;
 		parent.rightChild = newRoot.leftChild;
 		newRoot.leftChild = parent;
+		
 		newRoot.color = newRoot.leftChild.color;
 		newRoot.leftChild.setColorRed();
 		newRoot.subTreeCount = parent.subTreeCount;

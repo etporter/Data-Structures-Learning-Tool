@@ -62,7 +62,8 @@ public class Node
         }
         
         public boolean isRed()
-        {	if(color == 1)
+        {
+        	if(color == 1)
         		return true;
         	else
         		return false;

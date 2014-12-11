@@ -18,7 +18,7 @@ public class Window extends JFrame {
 	JButton backButton = new JButton("Back");
 	JTextArea infoBox = new JTextArea(10,20);
 	JTextArea updateBox = new JTextArea(25,20);
-	JLabel header1 = new JLabel("--------------");
+	JLabel header1 = new JLabel("Rotation Descriptions");
 	DSLTcanvas treeDisplay = new DSLTcanvas();
 	DSLTtree tree;
 	
