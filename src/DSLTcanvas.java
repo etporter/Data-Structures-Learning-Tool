@@ -27,7 +27,7 @@ public class DSLTcanvas extends JPanel {
 		if (node.color == 0) g.setColor(Color.black);
 		else if(node.color == 1) g.setColor(Color.red);
 		
-		if(node != tree.empty)
+		if(!(tree.isEmpty(node)))
 		{
 			g.drawOval(x, y, 50, 50);
 			g.drawString(Integer.toString(node.element), x+10, y+30);
