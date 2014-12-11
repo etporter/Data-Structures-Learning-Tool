@@ -30,7 +30,7 @@ public class DSLTcanvas extends JPanel {
 	}
 		  
 	public void paintComponent(Graphics g)
-	{		  
+	{		   
 		for(int i = 0; i<nodes.size(); i++)
 		{
 			if(i == 0)
