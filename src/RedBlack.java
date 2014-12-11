@@ -15,50 +15,41 @@ public class RedBlack implements DSLTtree {
     {	root = null;
     }
     
+
+	
 	public void insert(int element)
-	{	root = insert(element, root);
-		
-	}
-	
-	public void insert(int element, Node parent)
-	{  if (root == null) 
-		{	root = new Node(element);
-    	}
-	
-		Node n = root;
-		while (true) 
-		{	
-			
-			if (element == n.element)
-			{	return;
-			} 
-			
-			else if (element < n.element) 
-			{	if (n.leftChild == null) 
-				{	n.leftChild = new Node(element);
-                	adjustAfterInsertion(n.leftChild);
-                	break;
-            	}
-            	n = n.leftChild;
-			} 
-			
-			else 
-			{ 	// element > n.element
-				if (n.rightChild == null) 
-				{	n.rightChild = new Node(element);
-                	adjustAfterInsertion(n.rightChild);
-                	break;
-				}
-				n = n.rightChild;
-			}
-			
-    }
-		
-		
-		
-		
-		
-		
+	{   Node current, parent, grand, great = root;
+		Node temp = new Node(element);
+	   // nullNode.element = element;
+	    
+	    while(element != current.element) 
+	    {	great = grand; grand = parent; parent = current;
+	        if(element < current.element)
+	        	current = current.leftChild;
+	        else
+	        	current = current.rightChild;
+	        	//current = compare( element, current ) < 0 ?
+	            //current.left : current.right;
+	        
+	        // Check if two red children; fix if so
+	        if( current.leftChild.isRed() && current.rightChild.isRed() )
+	            checkPos(element);
+	    }
+	    
+	    // Insertion fails if already present
+	    if( current != nullNode )
+	        throw new DuplicateItemException( element.toString( ) );
+	    current = new RedBlackNode( element, nullNode, nullNode );
+	    
+	    // Attach to parent
+	    if( compare( element, parent ) < 0 )
+	        parent.left = current;
+	    else
+	        parent.right = current;
+	    
+	    checkPos( element );
+	    
+    
 		
 		/*if(parent == null)
 		{	parent = new Node(element, 1);
@@ -76,6 +67,59 @@ public class RedBlack implements DSLTtree {
 		parent = balance(parent);
 		return parent;
 		*/
+	}
+	
+	
+	private void insertAdjustment(Node thisNode)
+	{	 // Step 1: color the node red
+        thisNode.setColorRed();
+
+        // Step 2: Correct double red problems, if they exist
+        if(thisNode != null && thisNode != root && parent(thisNode).isRed())
+        {	// Step 2a (simplest): Recolor, and move up to see if more work
+            // needed
+            if (isRed(siblingOf(parentOf(n)))) {
+                setColor(parentOf(n), Color.black);
+                setColor(siblingOf(parentOf(n)), Color.black);
+                setColor(grandparentOf(n), Color.red);
+                adjustAfterInsertion(grandparentOf(n));
+            }
+
+            // Step 2b: Restructure for a parent who is the left child of the
+            // grandparent. This will require a single right rotation if n is
+            // also
+            // a left child, or a left-right rotation otherwise.
+            else if (parentOf(n) == leftOf(grandparentOf(n))) {
+                if (n == rightOf(parentOf(n))) {
+                    rotateLeft(n = parentOf(n));
+                }
+                setColor(parentOf(n), Color.black);
+                setColor(grandparentOf(n), Color.red);
+                rotateRight(grandparentOf(n));
+            }
+
+            // Step 2c: Restructure for a parent who is the right child of the
+            // grandparent. This will require a single left rotation if n is
+            // also
+            // a right child, or a right-left rotation otherwise.
+            else if (parentOf(n) == rightOf(grandparentOf(n))) {
+                if (n == leftOf(parentOf(n))) {
+                    rotateRight(n = parentOf(n));
+                }
+                setColor(parentOf(n), Color.black);
+                setColor(grandparentOf(n), Color.red);
+                rotateLeft(grandparentOf(n));
+            }
+        }
+
+        // Step 3: Color the root black
+        root.setColorBlack();
+      
+        
+        
+        
+        
+		
 	}
 	
 	public void delete(int element)

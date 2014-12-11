@@ -8,6 +8,9 @@ public class Node
 	    int height;       		// Height
 	    int color;				// 0 for black, 1 for red
 	    int subTreeCount; 		// Count of subtrees for Red/Black
+	    private static Node parent;
+	    private static Node grand;
+	    private static Node great;
     
         // Constructors
 	    public Node()
