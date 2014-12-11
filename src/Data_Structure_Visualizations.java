@@ -10,11 +10,4 @@ public class Data_Structure_Visualizations {
 		mainWindow.setVisible(true);
 	}
 	
-	private void startTreeWindow(String treeType)
-	{
-		// Creates new Window, and sets to visible
-		Window thisWindow = new Window(treeType);
-		thisWindow.setSize(1250,750);
-		thisWindow.setVisible(true);
-	}
 }
