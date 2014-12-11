@@ -168,7 +168,6 @@ public class Window extends JFrame implements ActionListener{
 			tree.insert(insertVal);
 		}
 		
-		
 		if(dropDown.getSelectedIndex() == 1)
 		{	String input = inputBox.getText();
 			Integer removeVal = Integer.parseInt(input);	
