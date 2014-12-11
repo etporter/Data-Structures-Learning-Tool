@@ -72,15 +72,6 @@ public class Window extends JFrame implements ActionListener{
 		sidePanel.add(updateBox);
 		sidePanel.add(backButton);
 		
-		goButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				int newLabel = Integer.parseInt(inputBox.getText());
-				tree.insert(newLabel);
-			}
-		});
-		
 		treeDisplay.setPreferredSize(new Dimension(950,600));
 		
 		/*List<Node> nodeList = new ArrayList<Node>();
