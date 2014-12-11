@@ -34,7 +34,7 @@ public class RedBlack implements DSLTtree {
     //Calls internal insert method on the root
 	public void insert(int element)
 	{	root = insert(element, root);
-		message = element + "was inserted.";
+		message = element + " was inserted. \n";
 		
 	}
 	
@@ -67,7 +67,7 @@ public class RedBlack implements DSLTtree {
 	{   message = "";
 		//sets message if delete can occur
     	if(find(element, root) == true)
-    	{	message = element + "was deleted.";
+    	{	message = element + " was deleted. \n";
     		if (!root.leftChild.isRed() && !root.rightChild.isRed())
     		{	root.setColorRed();
     		}
@@ -82,7 +82,7 @@ public class RedBlack implements DSLTtree {
     	
     	//else this item is not in the tree, return this message
     	else
-    	{   message = element + "was not in the tree.";
+    	{   message = element + " was not in the tree. \n";
     	}		
 	}
 
@@ -280,7 +280,7 @@ public class RedBlack implements DSLTtree {
 		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + 
 				sizeSubtreeCount(parent.rightChild) + 1;
 		
-		message += "\n Left Rotation at" + parent.element;
+		message += "Left Rotation at " + parent.element + "\n";
 		return newRoot;
 	}
 	
@@ -301,7 +301,7 @@ public class RedBlack implements DSLTtree {
 		parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + 
 				sizeSubtreeCount(parent.rightChild) + 1;
 		
-		message += "\n Right Rotation at" + parent.element;
+		message += "Right Rotation at " + parent.element +  "\n";
 		return newRoot;
 	}
 	

@@ -42,11 +42,11 @@ public class AvlTree implements DSLTtree {
         public void delete(int element)
         {	message = "";
         	if(find(element, root) == true)
-        	{	message = element + "was deleted. \n";
+        	{	message = element + " was deleted. \n";
         		root = delete(element, root);
         	}
         	else
-        	{   message = element + "was not in the tree. \n";
+        	{   message = element + " was not in the tree. \n";
         	}
         }
         
@@ -201,7 +201,7 @@ public class AvlTree implements DSLTtree {
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)
         {	root = insert(element, root);
-        	message = element + "was inserted. \n";
+        	message = element + " was inserted. \n";
         }
 
         //Inserts x into tree, pass in root from outside. 
