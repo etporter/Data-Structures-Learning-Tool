@@ -15,6 +15,13 @@ public class RedBlack implements DSLTtree {
     {	root = null;
     }
     
+    public boolean isEmpty(Node thisNode)
+    {	if(thisNode == empty)
+    		return true;
+    else
+    	return false;
+    	
+    }
 	public void insert(int element)
 	{	root = insert(element, root);
 		

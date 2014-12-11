@@ -28,6 +28,14 @@ public class AvlTree implements DSLTtree {
         {	root = new Node(element);
         }
         
+        public boolean isEmpty(Node thisNode)
+        {	if(thisNode == empty)
+        		return true;
+        	else
+        		return false;
+        }
+        
+        
         //Delete stub, to match that of implementation.
         //Calls internal delete method
         public void delete(int element)

@@ -2,8 +2,6 @@ import java.util.List;
 
 public interface DSLTtree {
 	
-	public Node empty = new Node(); 
-	
 	public void insert(int label);
 	
 	public void delete(int label);
@@ -14,6 +12,8 @@ public interface DSLTtree {
 	public List<Node> allNodes();
 	
 	public String getMessage();
+	
+	public boolean isEmpty(Node node);
 	
 	
 }

@@ -6,7 +6,7 @@ public class MinHeap implements DSLTtree {
 	
     public Node root = new Node();							//Root node
     public String message = "";								//Message from tree to window
-    public List<Node> minHeap = new ArrayList<Node>(30);	//
+    public List<Node> minHeap = new ArrayList<Node>(30);	//List to hold order of nodes
     public int size;										//
 	public static Node empty; 								//
     
@@ -27,6 +27,14 @@ public class MinHeap implements DSLTtree {
 
 	}
 	
+	
+    public boolean isEmpty(Node thisNode)
+    {	if(thisNode == empty)
+    		return true;
+    	else
+    		return false;
+    }
+    
 	//Deletes minimum item
 	public void delete(int label)
 	{ 	int minItem = minHeap.get(1).element;
