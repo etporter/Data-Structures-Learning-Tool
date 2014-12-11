@@ -6,7 +6,7 @@ public class Tester {
 			  
 		    //Creates new Window, and sets to visible
 		    Window thisWindow = new Window();
-		    thisWindow.setSize(1500,800);
+		    thisWindow.setSize(1250,750);
 		    thisWindow.setVisible(true);
 		    
 		    
