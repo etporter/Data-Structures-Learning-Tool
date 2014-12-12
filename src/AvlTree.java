@@ -106,13 +106,13 @@ public class AvlTree implements DSLTtree {
         		   if(parent.getLCH() - parent.getRCH() > 1)
                    {	//if item is rightmost from parent, double rotation
                        if(element > parent.leftChild.element)
-                       {	message = message + ("Double rotation about " + parent.element + "\n");
+                       {	message = message.concat("Double rotation about " + parent.element + "\n");
                        		parent = doubleRotateLeft(parent);
                        }
                    
                    	//Else item is leftmost, single rotation
                        else
-                       {	message = message + ("Single rotation about " + parent.element + "\n");
+                       {	message = message.concat("Single rotation about " + parent.element + "\n");
                        		parent = singleRotateLeft(parent);
                        }
                    }
@@ -122,13 +122,13 @@ public class AvlTree implements DSLTtree {
                    {  
                    	//if item is rightmost, single rotation
                    	if(element > parent.rightChild.element)
-                   	{   message = message + ("Single rotation about" + parent.element + "\n");
+                   	{   message = message.concat("Single rotation about" + parent.element + "\n");
                    		parent = singleRotateRight(parent);
                    	}
                    	
                    	//else item is leftmost, double rotation
                        else
-                       { 	message = message + ("Double rotation about " + parent.element+ "\n");
+                       { 	message = message.concat("Double rotation about " + parent.element+ "\n");
                        		parent = doubleRotateRight(parent);
                        }
                    }
@@ -228,13 +228,13 @@ public class AvlTree implements DSLTtree {
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
-                    {	message = message + ("Double rotation about " + parent.element+ "\n");
+                    {	message = message.concat("Double rotation about " + parent.element+ "\n");
                     	parent = doubleRotateLeft(parent);
                     }
                 
                 	//Else item is leftmost, single rotation
                     else
-                    {	message = message + ("Single rotation about " + parent.element+ "\n");
+                    {	message = message.concat("Single rotation about " + parent.element+ "\n");
                     	parent = singleRotateLeft(parent);
                     }
                 }
@@ -252,13 +252,13 @@ public class AvlTree implements DSLTtree {
                 {  
                 	//if item is rightmost, single rotation
                 	if(x > parent.rightChild.element)
-                	{   message = message +  ("Single rotation about " + parent.element + "\n");
+                	{   message = message.concat("Single rotation about " + parent.element + "\n");
                 		parent = singleRotateRight(parent);
                 	}
                 	
                 	//else item is leftmost, double rotation
                     else
-                    { 	message = message + ("Double rotation about " + parent.element + "\n");
+                    { 	message = message.concat("Double rotation about " + parent.element + "\n");
                     	parent = doubleRotateRight(parent);
                     }
                 }
