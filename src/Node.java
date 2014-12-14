@@ -5,6 +5,7 @@ public class Node
 	    int element;      		// The data in the node
 	    Node leftChild;         // Left child
 	    Node rightChild;        // Right child
+	    Node parent;			// Node to hold parent, used only in RB tree
 	    int height;       		// Height
 	    int color;				// 0 for black, 1 for red
 	    int subTreeCount; 		// Count of subtrees for Red/Black
@@ -15,6 +16,7 @@ public class Node
 	    {	element = -1;
     		leftChild = null;
     		rightChild = null;
+    		parent = null;
     		height = 0;
     		color = 0;	
 	    }
@@ -23,6 +25,7 @@ public class Node
         {	element = thisElement;
         	leftChild = null;
         	rightChild = null;
+        	parent = null;
         	height = 0;
         	color = 0;
         }
@@ -31,6 +34,7 @@ public class Node
         {	element = thisElement;
         	leftChild = null;
         	rightChild = null;
+        	parent = null;
         	height = 0;
         	color = thisColor;
         }
