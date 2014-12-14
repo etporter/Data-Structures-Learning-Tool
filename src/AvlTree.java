@@ -320,9 +320,9 @@ public class AvlTree implements DSLTtree {
         private Node singleRotateRight(Node parent)
         {	
         	//Sets old right child as root, parent as left child and right subchild as right child.
-            Node newRoot = parent.rightChild;
-            parent.rightChild = newRoot.leftChild; 
-            newRoot.leftChild = parent;
+        	 Node newRoot = parent.rightChild;
+             parent.rightChild = newRoot.leftChild; 
+             newRoot.leftChild = parent;
             
             //updates heights based on max of children. 
             parent.height = Math.max(parent.getLCH(), parent.getRCH()) + 1;

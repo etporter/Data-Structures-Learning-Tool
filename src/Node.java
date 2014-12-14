@@ -30,15 +30,16 @@ public class Node
         	color = 0;
         }
 
-        public Node(int thisElement, int thisColor)
+        public Node(int thisElement, int thisColor, Node thisParent)
         {	element = thisElement;
         	leftChild = null;
         	rightChild = null;
-        	parent = null;
+        	parent = thisParent;
         	height = 0;
         	color = thisColor;
         }
 
+        
         public int getLCH()
         {	if(leftChild != null)
 				return leftChild.height;
