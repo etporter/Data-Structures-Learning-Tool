@@ -239,26 +239,45 @@ public class RedBlack implements DSLTtree {
 	private Node balance(Node parent)
 	{	//Case where node has two children
 		if(parent.rightChild != null && parent.leftChild != null)
-		{	if(parent.rightChild.isRed() && !parent.leftChild.isRed())
-			{	parent = leftRotate(parent);
-				parent = flipColors(parent);
+		{	if(parent.rightChild.rightChild != null) 
+			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
+				{	parent.rightChild.setColorBlack();
+					parent.leftChild.setColorBlack();
+				}
 			}
-			if(parent.leftChild.isRed() && !parent.rightChild.isRed())
-			{//	parent = rightRotate(parent);
-				parent = flipColors(parent);
+			else if(parent.rightChild.leftChild != null)
+			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
+				{	parent.rightChild.setColorBlack();
+					parent.leftChild.setColorBlack();
+				}
+			}
+		
+			else if(parent.leftChild.leftChild != null) 
+			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
+				{	parent.rightChild.setColorBlack();
+					parent.leftChild.setColorBlack();
+				}
+			}
+			else if(parent.leftChild.rightChild != null)
+			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
+				{	parent.rightChild.setColorBlack();
+					parent.leftChild.setColorBlack();
+				}	
 			}
 		}
 		
 		//Case of just left child
-		if(parent.leftChild != null)
+		else if(parent.leftChild != null)
 		{	if(parent.leftChild.leftChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
 				{	parent = rightRotate(parent);
 				}
 			}
 			else if(parent.leftChild.rightChild != null)
-			{
-				//DOUBLE ROTATE
+			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
+				{	parent.leftChild = leftRotate(parent.leftChild);
+					parent = rightRotate(parent);
+				}
 			}
 		}
 		
@@ -271,7 +290,7 @@ public class RedBlack implements DSLTtree {
 			}
 			else if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
-				{	parent.rightChild= rightRotate(parent.rightChild);
+				{	parent.rightChild = rightRotate(parent.rightChild);
 					parent = leftRotate(parent);
 				}
 			}
