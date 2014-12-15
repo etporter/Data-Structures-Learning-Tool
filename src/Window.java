@@ -26,24 +26,31 @@ public class Window extends JFrame implements ActionListener{
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		//Select Tree type and update descriptions accordingly.
 		if(treeType == 0)
 		{
 			tree = new AvlTree();
+			updateBox.append("Description of AVL Tree Rotations");
+			
 		}
 		else if(treeType == 1)
 		{
 			tree = new RedBlack();
+			updateBox.append("Description of RedBlack Rotations");
 		}
 		else if(treeType == 2)
 		{
 			tree = new MinHeap();
+			updateBox.append("Description of Min Heap");
 			startIndex = 1;
 		}
 		
-		/*else if(treeType == 3)
+		else if(treeType == 3)
 		{
 			tree = new BST();
-		}*/
+			updateBox.append("Standard Binary Search Tree. \nLeft Subtree <= root "
+					+ "\nRightSubtree > root");
+		}
 		
 		treeDisplay = new DSLTcanvas(tree, startIndex);
 		
@@ -121,9 +128,7 @@ public class Window extends JFrame implements ActionListener{
 			Integer insertVal = Integer.parseInt(input);	
 			tree.insert(insertVal);
 			inputBox.setText("");
-			
-			
-			
+
 		}
 		
 		if(dropDown.getSelectedIndex() == 1)
@@ -131,7 +136,6 @@ public class Window extends JFrame implements ActionListener{
 			Integer removeVal = Integer.parseInt(input);	
 			tree.delete(removeVal);
 			inputBox.setText("");
-			
 		}
 		
 		treeDisplay.updateList();
