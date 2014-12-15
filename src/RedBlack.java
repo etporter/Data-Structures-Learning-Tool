@@ -33,9 +33,9 @@ public class RedBlack implements DSLTtree {
     //Insert to match DSLTtree inferface
     //Calls internal insert method on the root
 	public void insert(int element)
-	{	root = insert(element, root, 0, null);
-		message = element + " was inserted. \n";
-		
+	{	message = "";
+		root = insert(element, root, 0, null);
+		message = element + " was inserted. \n" + message;	
 	}
 	
 	//Inserts node correctly into RB tree
@@ -150,26 +150,30 @@ public class RedBlack implements DSLTtree {
 		{	if(parent.rightChild.rightChild != null) 
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
 				{	reColor(parent);
+					message = "" + parent.element + "recolored. \n" + message;
 					return parent;
 					
 				}
 			}
 			else if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
-				{	reColor(parent);
+				{	message = "" + parent.element + "recolored. \n" + message;
+					reColor(parent);
 					return parent;
 					
 				}
 			}
 			else if(parent.leftChild.leftChild != null) 
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
-				{	reColor(parent);
+				{	message = "" + parent.element + "recolored. \n" + message;
+					reColor(parent);
 					return parent;
 				}
 			}
 			else if(parent.leftChild.rightChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
-				{	reColor(parent);
+				{	message = "" + parent.element + "recolored. \n" + message;
+					reColor(parent);
 					return parent;
 				}	
 			}
@@ -180,16 +184,19 @@ public class RedBlack implements DSLTtree {
 		if(parent.leftChild != null)
 		{	if(parent.leftChild.leftChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
-				{	parent = rightRotate(parent);
+				{	message = "Single rotation at" + parent.element + "\n" + message;
+					parent = rightRotate(parent);
 				}
 			}
 			if(parent.leftChild.rightChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
 				{	if(parent.rightChild != null && parent.rightChild.isRed())
-					{	reColor(parent);	
+					{	message = "" + parent.element + "recolored. \n" + message;
+						reColor(parent);	
 					}
 				else
-					{parent.leftChild = leftRotate(parent.leftChild);
+					{message = "Double rotation at" + parent.element + "\n" + message;
+					parent.leftChild = leftRotate(parent.leftChild);
 					parent = rightRotate(parent);
 					}
 				}
@@ -202,16 +209,19 @@ public class RedBlack implements DSLTtree {
 		if(parent.rightChild != null)
 		{	if(parent.rightChild.rightChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
-				{	parent = leftRotate(parent);
+				{	message = "Single rotation at" + parent.element + "\n" + message;
+					parent = leftRotate(parent);
 				}
 			}
 			if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
 				{ if(parent.leftChild != null && parent.leftChild.isRed())
-					{	reColor(parent);
+					{	message = "" + parent.element + "recolored. \n" + message;
+						reColor(parent);
 					}
 					else
-					{	parent.rightChild = rightRotate(parent.rightChild);
+					{	message = "Double rotation at" + parent.element + "\n" + message;
+						parent.rightChild = rightRotate(parent.rightChild);
 						parent = leftRotate(parent);
 					}
 				}
