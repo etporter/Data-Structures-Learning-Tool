@@ -7,6 +7,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+/**
+ * @author Ethan Porter, Seraphina Orsina
+ * The window for displaying the trees, commands, etc.
+ * Extends JFrame
+ * Implements ActionListener
+ */
 public class Window extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
@@ -17,7 +23,7 @@ public class Window extends JFrame implements ActionListener{
 	JTextArea infoBox = new JTextArea(10,20);
 	JTextArea updateBox = new JTextArea(25,20);
 	JLabel header1 = new JLabel("Rotation Descriptions");
-	DSLTcanvas treeDisplay;// = new DSLTcanvas();
+	DSLTcanvas treeDisplay;
 	DSLTtree tree;
 	int startIndex = 0;
 	
@@ -26,6 +32,7 @@ public class Window extends JFrame implements ActionListener{
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		// Create tree depending on which was selected
 		if(treeType == 0)
 		{
 			tree = new AvlTree();
@@ -39,26 +46,29 @@ public class Window extends JFrame implements ActionListener{
 			tree = new MinHeap();
 			startIndex = 1;
 		}
-		
 		/*else if(treeType == 3)
 		{
 			tree = new BST();
 		}*/
 		
+		// Create the display for the tree
 		treeDisplay = new DSLTcanvas(tree, startIndex);
 		
+		// Setup the layout JPanels
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
-
+		
+		// Define the commands for the dropdown
 		String[] commands = {"Insert","Delete"};
 		
+		// Add the commands to the dropdown
 		for(int i=0; i<commands.length; i++)
 		{
 			dropDown.addItem(commands[i]);
 		}
 		
-	
+		// Create the scroll panes
 		JScrollPane scroll = new JScrollPane(infoBox);
 		JScrollPane scroll2 = new JScrollPane(updateBox); 
 		

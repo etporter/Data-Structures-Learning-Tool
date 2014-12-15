@@ -1,17 +1,24 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DSLTcanvas handles all of the drawing for displaying the tree
+ * It is actually not a canvas, but extends JPanel instead
+ */
 public class DSLTcanvas extends JPanel {
 
 	List<Node> nodes;
 	DSLTtree tree;
 	int startIndex;
 	
+	/**
+	 * The constructor for DSLTcanvas
+	 * @param t The tree that will be displayed
+	 * @param index The index where the first node will be located (MinHeap starts at 1, all others at 0)
+	 */
 	public DSLTcanvas(DSLTtree t, int index)
 	{
 		tree = t;
@@ -19,12 +26,21 @@ public class DSLTcanvas extends JPanel {
 		this.setBorder(BorderFactory.createBevelBorder(1));
 	}
 	
+	/**
+	 * update the internal list of nodes
+	 */
 	public void updateList()
 	{
 		nodes = tree.allNodes();
 	}
-	
-	
+
+	/**
+	 * This handles the drawing of an individual node
+	 * @param g The graphics context
+	 * @param node The node to be drawn
+	 * @param x The x coordinate for the node to be drawn
+	 * @param y The y coordinate for the node to be drawn
+	 */
 	private void drawNode(Graphics g, Node node, int x, int y)
 	{
 		if(!(tree.isEmpty(node)))
@@ -38,7 +54,11 @@ public class DSLTcanvas extends JPanel {
 		
 		g.setColor(Color.black);
 	}
-		  
+	
+	/**
+	 * Handles the painting of the entire tree
+	 * Location for each node is (sadly) hard coded
+	 */
 	public void paintComponent(Graphics g)
 	{
 		nodes = tree.allNodes();
