@@ -31,23 +31,45 @@ public class Window extends JFrame implements ActionListener{
 		{
 			tree = new AvlTree();
 			updateBox.append("Description of AVL Tree Rotations");
+			String[] commands = {"Insert","Delete"};
+			
+			for(int i=0; i<commands.length; i++)
+			{
+				dropDown.addItem(commands[i]);
+			}
 			
 		}
 		else if(treeType == 1)
 		{
 			tree = new RedBlack();
 			updateBox.append("Description of RedBlack Rotations");
+			String command = "Insert";
+			dropDown.addItem(command);
+			
 		}
 		else if(treeType == 2)
 		{
 			tree = new MinHeap();
 			updateBox.append("Description of Min Heap");
 			startIndex = 1;
+			String[] commands = {"Insert","DeleteMin"};
+			
+			for(int i=0; i<commands.length; i++)
+			{
+				dropDown.addItem(commands[i]);
+			}
 		}
 		
 		else if(treeType == 3)
 		{
 			tree = new BST();
+			String[] commands = {"Insert","Delete"};
+			
+			for(int i=0; i<commands.length; i++)
+			{
+				dropDown.addItem(commands[i]);
+			}
+			
 			updateBox.append("Standard Binary Search Tree. \nLeft Subtree <= root "
 					+ "\nRightSubtree > root");
 		}
