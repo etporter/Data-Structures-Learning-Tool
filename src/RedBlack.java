@@ -257,12 +257,19 @@ public class RedBlack implements DSLTtree {
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
 				{	parent.rightChild.setColorBlack();
 					parent.leftChild.setColorBlack();
+					parent.setColorRed();
+					root.setColorBlack();
+					return parent;
+					
 				}
 			}
 			else if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
 				{	parent.rightChild.setColorBlack();
 					parent.leftChild.setColorBlack();
+					parent.setColorRed();
+					root.setColorBlack();
+					return parent;
 					
 				}
 			}
@@ -270,18 +277,22 @@ public class RedBlack implements DSLTtree {
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
 				{	parent.rightChild.setColorBlack();
 					parent.leftChild.setColorBlack();
+					parent.setColorRed();
+					root.setColorBlack();
+					System.out.println("here");
+					return parent;
 				}
 			}
 			else if(parent.leftChild.rightChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
 				{	parent.rightChild.setColorBlack();
 					parent.leftChild.setColorBlack();
+					parent.setColorRed();
+					root.setColorBlack();
+					return parent;
 				}	
 			}
-			if(!parent.leftChild.isRed() && !parent.rightChild.isRed())
-				{	parent.setColorRed();
-				}
-		
+			
 		}
 		
 		//Case of just left child
@@ -293,8 +304,16 @@ public class RedBlack implements DSLTtree {
 			}
 			if(parent.leftChild.rightChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
-				{	parent.leftChild = leftRotate(parent.leftChild);
+				{	if(parent.rightChild != null && parent.rightChild.isRed())
+					{	parent.rightChild.setColorBlack();
+						parent.leftChild.setColorBlack();
+						parent.setColorRed();
+						root.setColorBlack();	
+					}
+				else
+					{parent.leftChild = leftRotate(parent.leftChild);
 					parent = rightRotate(parent);
+					}
 				}
 			}
 			
@@ -310,8 +329,16 @@ public class RedBlack implements DSLTtree {
 			}
 			if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
-				{	parent.rightChild = rightRotate(parent.rightChild);
-					parent = leftRotate(parent);
+				{ if(parent.leftChild != null && parent.leftChild.isRed())
+					{	parent.rightChild.setColorBlack();
+						parent.leftChild.setColorBlack();
+						parent.setColorRed();
+						root.setColorBlack();	
+					}
+					else
+					{	parent.rightChild = rightRotate(parent.rightChild);
+						parent = leftRotate(parent);
+					}
 				}
 			}
 			
