@@ -19,7 +19,7 @@ public class Window extends JFrame implements ActionListener{
 	JLabel header1 = new JLabel("Rotation Descriptions");
 	DSLTcanvas treeDisplay;// = new DSLTcanvas();
 	DSLTtree tree;
-	
+	int startIndex = 0;
 	
 	public Window(int treeType)
 	{
@@ -37,14 +37,15 @@ public class Window extends JFrame implements ActionListener{
 		else if(treeType == 2)
 		{
 			tree = new MinHeap();
+			startIndex = 1;
 		}
 		
-		else if(treeType == 3)
+		/*else if(treeType == 3)
 		{
 			tree = new BST();
-		}
+		}*/
 		
-		treeDisplay = new DSLTcanvas(tree);
+		treeDisplay = new DSLTcanvas(tree, startIndex);
 		
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
