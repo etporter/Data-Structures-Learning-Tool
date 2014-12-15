@@ -30,7 +30,7 @@ public class MinHeap implements DSLTtree {
 		size++;
 		minHeap.add(insertThis);    
         percolateUp();
-        message = element + " was inserted. \n Percolate Up. \n";
+        message = element + " was inserted. \nPercolate Up. \n";
 	}
 	
 	//Function to match empty nodes
@@ -58,7 +58,7 @@ public class MinHeap implements DSLTtree {
 		percolateDown();
 		
 		//Set message for the display
-		message = minItem + " was removed. \n Percolate Down. \n";
+		message = minItem + " was removed. \nPercolate Down. \n";
 	}
 	
 	
@@ -167,8 +167,9 @@ public class MinHeap implements DSLTtree {
     
 	//Uses Lists to get a level order of all nodes
 	public List<Node> allNodes()
-	{	return minHeap;
+	{	return minHeap.subList(1, minHeap.size());
 	}
+	
 	
 	//Gets message from current action on tree
 	public String getMessage()

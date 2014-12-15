@@ -94,6 +94,9 @@ public class Window extends JFrame implements ActionListener{
 			Integer insertVal = Integer.parseInt(input);	
 			tree.insert(insertVal);
 			inputBox.setText("");
+			
+			
+			
 		}
 		
 		if(dropDown.getSelectedIndex() == 1)
@@ -101,10 +104,13 @@ public class Window extends JFrame implements ActionListener{
 			Integer removeVal = Integer.parseInt(input);	
 			tree.delete(removeVal);
 			inputBox.setText("");
+			
 		}
 		
 		treeDisplay.updateList();
 		treeDisplay.repaint();
-	    infoBox.append(tree.getMessage());
+		infoBox.append(tree.getMessage());
+		
+	    
 	}
 }

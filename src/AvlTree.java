@@ -106,13 +106,13 @@ public class AvlTree implements DSLTtree {
         		   if(parent.getLCH() - parent.getRCH() > 1)
                    {	//if item is rightmost from parent, double rotation
                        if(element > parent.leftChild.element)
-                       {	message = message.concat("Double rotation about " + parent.element + "\n");
+                       {	message += ("Double rotation about " + parent.element + "\n");
                        		parent = doubleRotateLeft(parent);
                        }
                    
                    	//Else item is leftmost, single rotation
                        else
-                       {	message = message.concat("Single rotation about " + parent.element + "\n");
+                       {	message += ("Single rotation about " + parent.element + "\n");
                        		parent = singleRotateLeft(parent);
                        }
                    }
@@ -122,13 +122,13 @@ public class AvlTree implements DSLTtree {
                    {  
                    	//if item is rightmost, single rotation
                    	if(element > parent.rightChild.element)
-                   	{   message = message.concat("Single rotation about" + parent.element + "\n");
+                   	{   message += ("Single rotation about" + parent.element + "\n");
                    		parent = singleRotateRight(parent);
                    	}
                    	
                    	//else item is leftmost, double rotation
                        else
-                       { 	message = message.concat("Double rotation about " + parent.element+ "\n");
+                       { 	message += ("Double rotation about " + parent.element+ "\n");
                        		parent = doubleRotateRight(parent);
                        }
                    }
@@ -214,13 +214,14 @@ public class AvlTree implements DSLTtree {
         
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)
-        {	root = insert(element, root);
-        	message = element + " was inserted. \n";
+        {	message = "";
+        	root = insert(element, root);
+        	message = element + " was inserted. \n" + message;
         }
 
         //Inserts x into tree, pass in root from outside. 
         public Node insert(int x, Node parent)
-        {
+        {	
         	//If this location is null, this is the a new node
         	//Works for root, and when an empty tree is reached
             if( parent == null )
@@ -242,13 +243,15 @@ public class AvlTree implements DSLTtree {
                 {	
                 	//if item is rightmost from parent, double rotation
                     if(x > parent.leftChild.element)
-                    {	message = message.concat("Double rotation about " + parent.element+ "\n");
+                    {	message = ("Double rotation about " + parent.element+ "\n");
+                    	
                     	parent = doubleRotateLeft(parent);
                     }
                 
                 	//Else item is leftmost, single rotation
                     else
-                    {	message = message.concat("Single rotation about " + parent.element+ "\n");
+                    {	message =  ("Single rotation about " + parent.element+ "\n");
+                    	
                     	parent = singleRotateLeft(parent);
                     }
                 }
@@ -266,13 +269,14 @@ public class AvlTree implements DSLTtree {
                 {  
                 	//if item is rightmost, single rotation
                 	if(x > parent.rightChild.element)
-                	{   message = message.concat("Single rotation about " + parent.element + "\n");
+                	{   message = ("Single rotation about " + parent.element + "\n");
+                	
                 		parent = singleRotateRight(parent);
                 	}
                 	
                 	//else item is leftmost, double rotation
                     else
-                    { 	message = message.concat("Double rotation about " + parent.element + "\n");
+                    { 	message = ("Double rotation about " + parent.element + "\n");
                     	parent = doubleRotateRight(parent);
                     }
                 }

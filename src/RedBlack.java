@@ -143,8 +143,9 @@ public class RedBlack implements DSLTtree {
 
 	
 	//Method to balance a node
+	//Code Magic of figuring out every possible way a node cna be inserted and fixed
 	private Node balance(Node parent)
-	{	//Case where node has two children
+	{	//Case where node has two children, and too many reds.
 		if(hasBothChildren(parent))
 		{	if(parent.rightChild.rightChild != null) 
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
