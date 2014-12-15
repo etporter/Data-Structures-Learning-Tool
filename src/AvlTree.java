@@ -157,28 +157,31 @@ public class AvlTree implements DSLTtree {
         
         //Uses Lists to get a level order of all nodes
         public List<Node> allNodes()
-        {	levelOrder.clear();
-        	List<Node> thisLevel = new ArrayList<Node>();
-        	List<Node> nextLevel = new ArrayList<Node>();
-        	
-        	//Add root
-        	thisLevel.add(root);
-
-        	//While this level is not empty
-        	while (!thisLevel.isEmpty()) 
-        	{	Iterator<Node> iter = thisLevel.iterator();
-        	
-        		//While there is a next item
-	            while (iter.hasNext()) 
-	            {	//Add the children of the next node
-	            	Node currentNode = iter.next();
-	            	if(currentNode == empty)
-	            		{	levelOrder.add(empty);
-	            		}
-	            	//Adds children to next level, including placeholder empty
-	            	else if(currentNode != null && currentNode != empty) 	
-	            	{	levelOrder.add(currentNode);
-	            	
+	
+		{	levelOrder.clear();
+			List<Node> thisLevel = new ArrayList<Node>();
+			List<Node> nextLevel = new ArrayList<Node>();
+			
+			//Add root
+			thisLevel.add(root);
+		
+			//While this level is not empty
+			while (!thisLevel.isEmpty()) 
+			{	Iterator<Node> iter = thisLevel.iterator();
+			
+				//While there is a next item
+		        while (iter.hasNext()) 
+		        {	//Add the children of the next node
+		        	Node currentNode = iter.next();
+		        	if(currentNode == empty)
+	        		{	levelOrder.add(empty);
+	        			nextLevel.add(empty);
+	        			nextLevel.add(empty);
+	        		}
+		        	//Adds children to next level, including placeholder empty
+		        	if(currentNode != null) 	
+		        	{	levelOrder.add(currentNode);
+	
 		                if(currentNode.leftChild == null)
 		                {	nextLevel.add(empty);}
 		                else
@@ -188,15 +191,26 @@ public class AvlTree implements DSLTtree {
 		                {	nextLevel.add(empty);}
 		                else
 		                {	nextLevel.add(currentNode.rightChild);}
-	            	}
-	            }
-	            //Sets this level to be next row down, creates a new next level
-	            thisLevel = nextLevel;
-	            nextLevel = new ArrayList<Node>();
-        	}
-        	return levelOrder;
-        }
-        
+		        	}
+		        }
+		        //Sets this level to be next row down, creates a new next level
+		        thisLevel = nextLevel;
+		        if(isListAllEmpty(thisLevel) == true)
+		        {	break;
+		        }
+		        nextLevel = new ArrayList<Node>();
+			}
+			return levelOrder;
+		}
+		
+		public boolean isListAllEmpty(List<Node> thisList)
+		{	for(int i = 0; i < thisList.size(); i++)
+			{	if(thisList.get(i) != empty)
+					return false;
+			}
+			return true;
+		}
+	        
         
         //Insert method, to follow interface. Implemented as a return function below for recursion.
         public void insert(int element)

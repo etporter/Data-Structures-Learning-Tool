@@ -1,10 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -157,12 +153,14 @@ public class Window extends JFrame implements ActionListener{
 		{	String input = inputBox.getText();
 			Integer insertVal = Integer.parseInt(input);	
 			tree.insert(insertVal);
+			inputBox.setText("");
 		}
 		
 		if(dropDown.getSelectedIndex() == 1)
 		{	String input = inputBox.getText();
 			Integer removeVal = Integer.parseInt(input);	
 			tree.delete(removeVal);
+			inputBox.setText("");
 		}
 		
 		treeDisplay.updateList();

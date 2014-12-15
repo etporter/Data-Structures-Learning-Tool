@@ -44,8 +44,9 @@ public class RedBlack implements DSLTtree {
 		//If current node is null, this is where to insert
 		if(parent == null)
 		{	if(count == 0)
-			{	parent = new Node(element);
-				parent.setColorBlack();
+			{	root = new Node(element);
+				root.setColorBlack();
+				parent = root;
 			}
 			else
 				parent = new Node(element, 1, thisParents);
@@ -66,6 +67,7 @@ public class RedBlack implements DSLTtree {
 		//check balance of current node
 		//will check balance of all nodes it went through to get here by recursion
 		parent = balance(parent);
+		
 		return parent;
 	}
 	
@@ -139,7 +141,7 @@ public class RedBlack implements DSLTtree {
 	
 	//flip colors and double rotate a node 
 	private Node moveLeft(Node parent)
-	{	parent = flipColors(parent);
+	{
 		if(parent.rightChild.leftChild.isRed())
 		{	parent.rightChild = rightRotate(parent.rightChild);
 			parent = leftRotate(parent);	
@@ -149,7 +151,7 @@ public class RedBlack implements DSLTtree {
 	
 	//Flip colors and double rotate a node
 	private Node moveRight(Node parent)
-	{	parent = flipColors(parent);
+	{
 		if(parent.leftChild.leftChild.isRed())
 		{	parent = rightRotate(parent);
 		}
@@ -204,12 +206,14 @@ public class RedBlack implements DSLTtree {
 	        {	//Add the children of the next node
 	        	Node currentNode = iter.next();
 	        	if(currentNode == empty)
-	        		{	levelOrder.add(empty);
-	        		}
+        		{	levelOrder.add(empty);
+        			nextLevel.add(empty);
+        			nextLevel.add(empty);
+        		}
 	        	//Adds children to next level, including placeholder empty
-	        	else if(currentNode != null && currentNode != empty) 	
+	        	if(currentNode != null) 	
 	        	{	levelOrder.add(currentNode);
-	        	
+
 	                if(currentNode.leftChild == null)
 	                {	nextLevel.add(empty);}
 	                else
@@ -223,11 +227,21 @@ public class RedBlack implements DSLTtree {
 	        }
 	        //Sets this level to be next row down, creates a new next level
 	        thisLevel = nextLevel;
+	        if(isListAllEmpty(thisLevel) == true)
+	        {	break;
+	        }
 	        nextLevel = new ArrayList<Node>();
 		}
 		return levelOrder;
 	}
 	
+	public boolean isListAllEmpty(List<Node> thisList)
+	{	for(int i = 0; i < thisList.size(); i++)
+		{	if(thisList.get(i) != empty)
+				return false;
+		}
+		return true;
+	}
 	
 	//returns the message
 	public String getMessage()
@@ -238,7 +252,7 @@ public class RedBlack implements DSLTtree {
 	//Method to balance a node
 	private Node balance(Node parent)
 	{	//Case where node has two children
-		if(parent.rightChild != null && parent.leftChild != null)
+		if(hasBothChildren(parent))
 		{	if(parent.rightChild.rightChild != null) 
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
 				{	parent.rightChild.setColorBlack();
@@ -249,9 +263,9 @@ public class RedBlack implements DSLTtree {
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
 				{	parent.rightChild.setColorBlack();
 					parent.leftChild.setColorBlack();
+					
 				}
 			}
-		
 			else if(parent.leftChild.leftChild != null) 
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
 				{	parent.rightChild.setColorBlack();
@@ -264,31 +278,37 @@ public class RedBlack implements DSLTtree {
 					parent.leftChild.setColorBlack();
 				}	
 			}
+			if(!parent.leftChild.isRed() && !parent.rightChild.isRed())
+				{	parent.setColorRed();
+				}
+		
 		}
 		
 		//Case of just left child
-		else if(parent.leftChild != null)
+		if(parent.leftChild != null)
 		{	if(parent.leftChild.leftChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.leftChild.isRed())
 				{	parent = rightRotate(parent);
 				}
 			}
-			else if(parent.leftChild.rightChild != null)
+			if(parent.leftChild.rightChild != null)
 			{	if(parent.leftChild.isRed() && parent.leftChild.rightChild.isRed())
 				{	parent.leftChild = leftRotate(parent.leftChild);
 					parent = rightRotate(parent);
 				}
 			}
+			
 		}
 		
+		
 		//case of just right child
-		else if(parent.rightChild != null)
+		if(parent.rightChild != null)
 		{	if(parent.rightChild.rightChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
 				{	parent = leftRotate(parent);
 				}
 			}
-			else if(parent.rightChild.leftChild != null)
+			if(parent.rightChild.leftChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.leftChild.isRed())
 				{	parent.rightChild = rightRotate(parent.rightChild);
 					parent = leftRotate(parent);
@@ -297,10 +317,18 @@ public class RedBlack implements DSLTtree {
 			
 		}
 		
-		
+		root.setColorBlack();
 		//update subtree counts 
 		//parent.subTreeCount = sizeSubtreeCount(parent.leftChild) + sizeSubtreeCount(parent.rightChild) +1;
 		return parent;	
+	}
+	
+	
+	public boolean hasBothChildren(Node thisNode)
+	{	if(thisNode.rightChild != null && thisNode.leftChild != null)
+			return true;
+		else
+			return false;
 	}
 	
 	
@@ -315,6 +343,9 @@ public class RedBlack implements DSLTtree {
 		    
 		newRoot.setColorBlack();
 		newRoot.leftChild.setColorRed();
+		
+		if(oldRoot == root)
+			root = newRoot;
 		
 		message += "Left Rotation at " + oldRoot.element + "\n";
 		return newRoot;
@@ -334,84 +365,19 @@ public class RedBlack implements DSLTtree {
         newRoot.setColorBlack();
         newRoot.rightChild.setColorRed();
 
+        if(oldRoot == root)
+			root = newRoot;
+        
 		message += "Right Rotation at " + oldRoot.element +  "\n";
 		return newRoot;
 	}
 	
 	
-	//Method takes the parent node and switches its color
-	//and the color of its children
-	public Node flipColors(Node parent)
-	{	parent.flipColor();
-		/*if(parent.leftChild !=null)
-			parent.leftChild.flipColor();
-		if(parent.rightChild !=null)
-			parent.rightChild.flipColor();*/
-		return parent;
-	}
+
 	
 	
-	
-	public void fixColors(Node thisNode)
-	{	while(thisNode != root && thisNode.parent.isRed())
-		{	if(thisNode.parent  == thisNode.parent.parent.leftChild)
-			{	Node tempNode = thisNode.parent.parent.rightChild;
-				if(tempNode.isRed())
-				{
-					thisNode.parent.setColorBlack();
-					tempNode.setColorBlack();
-					thisNode.parent.parent.setColorRed();
-					thisNode = thisNode.parent.parent;
-				}
-				else
-				{
-					if(thisNode == thisNode.parent.rightChild)
-					{
-						//thisNode = thisNode.parent;
-						leftRotate(thisNode.parent);
-					}
-				}
-				
-				thisNode.parent.setColorBlack();
-				thisNode.parent.parent.setColorRed();
-				rightRotate(thisNode.parent.parent);
-			}
-		
-			else
-			{	Node tempNode = thisNode.parent.parent.leftChild;
-				if(tempNode.isRed())
-				{
-					thisNode.parent.setColorBlack();
-					tempNode.setColorBlack();
-					thisNode.parent.parent.setColorRed();
-					thisNode = thisNode.parent.parent;
-				}
-				else
-				{	if(thisNode == thisNode.parent.leftChild)
-					{
-						rightRotate(thisNode.parent);
-					}
-					thisNode.parent.setColorBlack();
-					thisNode.parent.parent.setColorRed();
-					leftRotate(thisNode.parent.parent);
-				}
-				
-			}
-		}
-		
-		root.setColorBlack();
-	}
-	
-	
-	//Method to return of the number of black nodes from the parent to a leaf
-    public int sizeSubtreeCount(Node parent) 
-    {	if(parent == null)
-    	{	return 0;
-    	}
-    	else
-    	{	return parent.subTreeCount;
-    	} 
-    }
+
+
 
     
     
