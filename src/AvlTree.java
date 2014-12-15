@@ -42,8 +42,8 @@ public class AvlTree implements DSLTtree {
         public void delete(int element)
         {	message = "";
         	if(find(element, root) == true)
-        	{	message = element + " was deleted. \n";
-        		root = delete(element, root);
+        	{	root = delete(element, root);
+        		message = element + " was deleted. \n" + message;
         	}
         	else
         	{   message = element + " was not in the tree. \n";
@@ -106,13 +106,13 @@ public class AvlTree implements DSLTtree {
         		   if(parent.getLCH() - parent.getRCH() > 1)
                    {	//if item is rightmost from parent, double rotation
                        if(element > parent.leftChild.element)
-                       {	message += ("Double rotation about " + parent.element + "\n");
+                       {	message = ("Double rotation about " + parent.element + "\n");
                        		parent = doubleRotateLeft(parent);
                        }
                    
                    	//Else item is leftmost, single rotation
                        else
-                       {	message += ("Single rotation about " + parent.element + "\n");
+                       {	message = ("Single rotation about " + parent.element + "\n");
                        		parent = singleRotateLeft(parent);
                        }
                    }
@@ -122,13 +122,13 @@ public class AvlTree implements DSLTtree {
                    {  
                    	//if item is rightmost, single rotation
                    	if(element > parent.rightChild.element)
-                   	{   message += ("Single rotation about" + parent.element + "\n");
+                   	{   message = ("Single rotation about" + parent.element + "\n");
                    		parent = singleRotateRight(parent);
                    	}
                    	
                    	//else item is leftmost, double rotation
                        else
-                       { 	message += ("Double rotation about " + parent.element+ "\n");
+                       { 	message = ("Double rotation about " + parent.element+ "\n");
                        		parent = doubleRotateRight(parent);
                        }
                    }

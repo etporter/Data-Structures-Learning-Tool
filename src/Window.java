@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,7 @@ public class Window extends JFrame implements ActionListener{
 	JLabel header1 = new JLabel("Rotation Descriptions");
 	DSLTcanvas treeDisplay;// = new DSLTcanvas();
 	DSLTtree tree;
+	
 	
 	public Window(int treeType)
 	{
@@ -55,28 +57,52 @@ public class Window extends JFrame implements ActionListener{
 			dropDown.addItem(commands[i]);
 		}
 		
+	
+		JScrollPane scroll = new JScrollPane(infoBox);
+		JScrollPane scroll2 = new JScrollPane(updateBox); 
+		
+		infoBox.setPreferredSize(new Dimension(240,125));
+		updateBox.setPreferredSize(new Dimension(240,175));
+		infoBox.setEditable(false);
+		updateBox.setEditable(false);
+		
 		dropDown.setAlignmentX(Component.CENTER_ALIGNMENT);
 		inputBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		goButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		goButton.addActionListener(this);
-		infoBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
 		header1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		updateBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		scroll2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		backButton.addActionListener( new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	dispose();
+            	MainWindow mainWindow = new MainWindow();
+        		mainWindow.setSize(600, 300);
+        		mainWindow.setLocationRelativeTo(null);
+        		mainWindow.setVisible(true);
+                
+            }
+        });      
+	
 		
 		sidePanel.add(dropDown);
 		sidePanel.add(inputBox);
 		sidePanel.add(goButton);
 		
-		sidePanel.add(infoBox);
+		sidePanel.add(scroll);
 		sidePanel.add(header1);
-		sidePanel.add(updateBox);
+		sidePanel.add(scroll2);
 		sidePanel.add(backButton);
 		
 		treeDisplay.setPreferredSize(new Dimension(950,600));
 
 		windowLayout.add(sidePanel, BorderLayout.WEST);
 		windowLayout.add(treeDisplay, BorderLayout.EAST);
+		
+		
 		
 		getContentPane().add(windowLayout, BorderLayout.WEST);
 	}

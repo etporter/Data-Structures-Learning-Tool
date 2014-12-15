@@ -65,5 +65,6 @@ public class MainWindow extends JFrame implements ActionListener{
 			startTreeWindow(3,"Binary Search Tree");
 		}
 	    
+		dispose();
 	}
 }
