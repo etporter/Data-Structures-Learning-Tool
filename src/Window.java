@@ -152,7 +152,21 @@ public class Window extends JFrame implements ActionListener{
 		if(dropDown.getSelectedIndex() == 0)
 		{	String input = inputBox.getText();
 			Integer insertVal = Integer.parseInt(input);	
-			tree.insert(insertVal);
+			tree.insert(10);
+			tree.insert(85);
+			tree.insert(15);
+			tree.insert(70);
+			tree.insert(20);
+			tree.insert(60);
+			tree.insert(30);
+			tree.insert(50);
+			tree.insert(65);
+			tree.insert(80);
+			tree.insert(90);
+			tree.insert(40);
+			tree.insert(5);
+			tree.insert(55);
+			
 			inputBox.setText("");
 		}
 		
