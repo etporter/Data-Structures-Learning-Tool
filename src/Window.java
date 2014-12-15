@@ -95,6 +95,7 @@ public class Window extends JFrame implements ActionListener{
 		JPanel windowLayout = new JPanel();
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
+<<<<<<< HEAD
 		
 		// Define the commands for the dropdown
 		String[] commands = {"Insert","Delete"};
@@ -104,6 +105,9 @@ public class Window extends JFrame implements ActionListener{
 		{
 			dropDown.addItem(commands[i]);
 		}
+=======
+
+>>>>>>> FETCH_HEAD
 		
 		// Create the scroll panes
 		JScrollPane scroll = new JScrollPane(infoBox);
