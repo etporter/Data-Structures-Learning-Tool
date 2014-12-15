@@ -209,7 +209,7 @@ public class RedBlack implements DSLTtree {
 		if(parent.rightChild != null)
 		{	if(parent.rightChild.rightChild != null)
 			{	if(parent.rightChild.isRed() && parent.rightChild.rightChild.isRed())
-				{	message = "Single rotation at" + parent.element + "\n" + message;
+				{	
 					parent = leftRotate(parent);
 				}
 			}
@@ -260,7 +260,7 @@ public class RedBlack implements DSLTtree {
 		if(oldRoot == root)
 			root = newRoot;
 		
-		message += "Left Rotation at " + oldRoot.element + "\n";
+	
 		return newRoot;
 	}
 	
@@ -281,7 +281,7 @@ public class RedBlack implements DSLTtree {
         if(oldRoot == root)
 			root = newRoot;
         
-		message += "Right Rotation at " + oldRoot.element +  "\n";
+		
 		return newRoot;
 	}
 	

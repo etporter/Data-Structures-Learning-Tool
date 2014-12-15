@@ -80,12 +80,6 @@ public class Window extends JFrame implements ActionListener{
 		JPanel sidePanel = new JPanel();
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
 
-		String[] commands = {"Insert","Delete"};
-		
-		for(int i=0; i<commands.length; i++)
-		{
-			dropDown.addItem(commands[i]);
-		}
 		
 	
 		JScrollPane scroll = new JScrollPane(infoBox);
