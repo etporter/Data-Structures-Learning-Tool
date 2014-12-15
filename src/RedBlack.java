@@ -75,7 +75,7 @@ public class RedBlack implements DSLTtree {
 	//returns error message
 	public void delete(int element)
 	{
-		message += "Delete not implemented on a red black tree.";
+		message = "Delete not implemented on a red black tree.";
 	}
     
 	
