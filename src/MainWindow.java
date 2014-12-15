@@ -19,7 +19,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		title.setFont(new Font("Serif", Font.BOLD, 30));
 		
 		
-		String[] commands = {"AVL Tree","Red-Black Tree","Binary Heap - Min"};
+		String[] commands = {"AVL Tree","Red-Black Tree","Binary Heap - Min", "Binary Search Tree"};
 		for(int i=0; i<commands.length; i++)
 		{
 			typeSelector.addItem(commands[i]);
@@ -58,6 +58,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		if(typeSelector.getSelectedIndex() == 2)
 		{	// Creates new Window, and sets to visible
 			startTreeWindow(2,"Binary Heap - Min");
+		}
+		
+		if(typeSelector.getSelectedIndex() == 3)
+		{	// Creates new Window, and sets to visible
+			startTreeWindow(3,"Binary Search Tree");
 		}
 	    
 	}

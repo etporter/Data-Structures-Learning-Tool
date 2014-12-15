@@ -71,123 +71,14 @@ public class RedBlack implements DSLTtree {
 		return parent;
 	}
 	
-	//Delete method to match interface, calls internal delete on root
+	
+	//returns error message
 	public void delete(int element)
-	{   message = "";
-		//sets message if delete can occur
-    	if(find(element, root) == true)
-    	{	message = element + " was deleted. \n";
-    		if (!root.leftChild.isRed() && !root.rightChild.isRed())
-    		{	root.setColorRed();
-    		}
-    		
-    		//call delete method
-    		root = delete(element, root);
-    		
-    		if (root != null) 
-    		{	root.setColorBlack();
-    		}
-       	}
-    	
-    	//else this item is not in the tree, return this message
-    	else
-    	{   message = element + " was not in the tree. \n";
-    	}		
-	}
-
-	
-	//Internal delete Method
-	private Node delete(int element, Node parent)
-	{	
-		//If element to delete is less than current node, go to left. Check colors for imbalance
-		if(element < parent.element)
-		{	if(!parent.leftChild.isRed() && !parent.leftChild.leftChild.isRed())
-			{	parent = moveLeft(parent);
-			}
-			parent.leftChild = delete(element, parent.leftChild);	
-		}
-		
-		//Else it must be greater or equal
-		else 
-		{	//Three cases of greater and colors
-			if(parent.leftChild.isRed())
-			{	parent = rightRotate(parent);
-			}
-    	
-        	if(parent.element == element && (parent.rightChild == null))
-        	{	return null;
-        	}
-        	
-        	if(!parent.rightChild.isRed() && !parent.rightChild.leftChild.isRed())
-        	{	parent = moveRight(parent);
-        	}
-        	
-        	//Case equal
-        	if(element == parent.element)
-        	{	Node temp = findMin(parent.rightChild);
-        		parent.element = temp.element;
-        		parent.rightChild = deleteMin(parent.rightChild);	
-        	}
-        	
-        	else
-        		parent.rightChild = delete(element, parent.rightChild);
-		}
- 
-		//Balance this node
-		parent = balance(parent);
-		return parent;
-	}
-	
-	
-	//flip colors and double rotate a node 
-	private Node moveLeft(Node parent)
 	{
-		if(parent.rightChild.leftChild.isRed())
-		{	parent.rightChild = rightRotate(parent.rightChild);
-			parent = leftRotate(parent);	
-		}
-		return parent;	
+		message += "Delete not implemented on a red black tree.";
 	}
-	
-	//Flip colors and double rotate a node
-	private Node moveRight(Node parent)
-	{
-		if(parent.leftChild.leftChild.isRed())
-		{	parent = rightRotate(parent);
-		}
-		return parent;	
-	}
-
-	
-	//find the minimum node
-	private Node findMin(Node parent)
-	{	if (parent.leftChild == null) 
-		{	return parent;
-		}
-    	else
-    	{	return findMin(parent.leftChild); 
-    	}
-	}
-	
-	
-	//Delete the minimum item
-    private Node deleteMin(Node parent) 
-    {	//if no smaller item, return
-    	if (parent.leftChild == null)
-            return null;
-    	
-    	//find smaller items
-    	if(parent.rightChild != null && parent.rightChild.leftChild != null)
-    	{	if (parent.rightChild.leftChild.isRed())
-        	{	parent = moveLeft(parent);
-        	}
-    	}
-    	
-        parent.leftChild = deleteMin(parent.leftChild);
-        return parent;
-    }
-	
     
+	
    //Uses Lists to get a level order of all nodes
 	public List<Node> allNodes()
 	{	levelOrder.clear();
@@ -235,6 +126,7 @@ public class RedBlack implements DSLTtree {
 		return levelOrder;
 	}
 	
+	//Determines if the next level of the tree is completely empty
 	public boolean isListAllEmpty(List<Node> thisList)
 	{	for(int i = 0; i < thisList.size(); i++)
 		{	if(thisList.get(i) != empty)
@@ -242,6 +134,7 @@ public class RedBlack implements DSLTtree {
 		}
 		return true;
 	}
+	
 	
 	//returns the message
 	public String getMessage()
@@ -331,6 +224,7 @@ public class RedBlack implements DSLTtree {
 	}
 	
 	
+	//Method returns true if both children of a node are not null
 	public boolean hasBothChildren(Node thisNode)
 	{	if(thisNode.rightChild != null && thisNode.leftChild != null)
 			return true;
@@ -338,6 +232,7 @@ public class RedBlack implements DSLTtree {
 			return false;
 	}
 	
+
 	
 	//Method to rotate to the left
 	//POST: Parent's right child is new 'root'
@@ -379,6 +274,8 @@ public class RedBlack implements DSLTtree {
 		return newRoot;
 	}
 	
+	
+	//Method to color the children of a node black and the node itself red
 	public void reColor(Node thisNode)
 	{	thisNode.rightChild.setColorBlack();
 		thisNode.leftChild.setColorBlack();
@@ -386,11 +283,7 @@ public class RedBlack implements DSLTtree {
 		root.setColorBlack();		
 	}
 	
-	public void unColor(Node thisNode)
-	{
-		
-	}
-
+	
     //Method to determine if a node is in the tree or not
     private boolean find(int x, Node node)
     {	//Loops through correct side until it hits a null node 
