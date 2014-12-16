@@ -12,6 +12,8 @@ Instructions:
 - A new window will open.  Select "insert" or "delete", enter a number (maximum of 4 digits), and press "Go!".
 - Do this up to 31 times, and watch it build your tree. (Max of 5 Levels)
 
+Please note:
+------------
 For BST, AVL:
 Insert and delete any <=4 digit integer.
 
